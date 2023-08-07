@@ -1,0 +1,11 @@
+.root {
+  @apply rounded-full overflow-hidden w-[100px] h-[100px] relative;
+}
+
+.img {
+  @apply w-full h-full;
+}
+
+.selected {
+  @apply absolute top-0 left-0 w-full h-full bg-pointGrayBlue opacity-50 flex justify-center;
+}
