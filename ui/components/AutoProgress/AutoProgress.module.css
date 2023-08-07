@@ -1,0 +1,7 @@
+.root {
+  @apply w-full bg-gray3 h-1 rounded-full overflow-hidden;
+}
+
+.progress {
+  @apply h-full bg-gradient-to-r from-pointBlue2 via-gray3 to-pointBlue2;
+}
