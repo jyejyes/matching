@@ -1,43 +1,29 @@
-import '#/styles/globals.css'
-import { AddressBar } from '#/ui/address-bar'
-import Byline from '#/ui/byline'
-import { GlobalNav } from '#/ui/global-nav'
-import { Metadata } from 'next'
+import "#/styles/globals.css";
+import { Metadata } from "next";
+import LibraryWrapper from "#/app/_components/LibraryWrapper";
 
 export const metadata: Metadata = {
   title: {
-    default: 'Next.js App Router',
-    template: '%s | Next.js App Router',
+    default: "10days project",
+    template: "%s | Next.js App Router",
   },
   description:
-    'A playground to explore new Next.js App Router features such as nested layouts, instant loading states, streaming, and component level data fetching.',
-}
+    "A playground to explore new Next.js App Router features such as nested layouts, instant loading states, streaming, and component level data fetching.",
+};
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+type Props = {
+  children: React.ReactNode;
+};
+export default function RootLayout({ children }: Props) {
   return (
-    <html lang="en" className="[color-scheme:dark]">
-      <body className="bg-gray-1100 overflow-y-scroll bg-[url('/grid.svg')] pb-36">
-        <GlobalNav />
-
-        <div className="lg:pl-72">
-          <div className="mx-auto max-w-4xl space-y-8 px-2 pt-20 lg:py-8 lg:px-8">
-            <div className="rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20">
-              <div className="rounded-lg bg-black">
-                <AddressBar />
-              </div>
-            </div>
-
-            <div className="rounded-lg bg-vc-border-gradient p-px shadow-lg shadow-black/20">
-              <div className="rounded-lg bg-black p-3.5 lg:p-6">{children}</div>
-            </div>
-            <Byline className="fixed sm:hidden" />
+    <html lang="en">
+      <body className="flex-center bg-gray7">
+        <LibraryWrapper>
+          <div className="bg-white min-w-[320px] w-full max-w-[400px] h-screen overflow-x-hidden">
+            {children}
           </div>
-        </div>
+        </LibraryWrapper>
       </body>
     </html>
-  )
+  );
 }
