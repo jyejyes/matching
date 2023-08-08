@@ -3,15 +3,18 @@ import { Modal } from "#/ui/components/modal/Modal";
 import useModalControl from "#/app/modalControl.state";
 import { useRouter } from "next/navigation";
 import routerPaths from "#/utils/routerPaths";
+import { useDeleteUser } from "#/hooks/apis/useDeleteUser";
 
 export const DeleteModal = () => {
   const { isDeleteModalOpen, updateIsDeleteModalOpen } = useModalControl();
 
   const { push } = useRouter();
+
+  const { mutate: deleteUser } = useDeleteUser();
   const handleClickDelete = () => {
     // 탈퇴 로직
-
-    push(routerPaths.signup());
+    deleteUser();
+    // push(routerPaths.signup());
   };
 
   const handleClickCancel = () => {
