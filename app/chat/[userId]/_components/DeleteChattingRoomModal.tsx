@@ -9,8 +9,10 @@ export const DeleteChattingRoomModal = () => {
     useModalControl();
 
   const { push } = useRouter();
+
   const handleClickDelete = () => {
     // 삭제 로직 로직
+    // mutate(2);
   };
 
   const handleClickCancel = () => {
