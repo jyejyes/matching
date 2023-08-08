@@ -6,7 +6,6 @@ import { useState } from "react";
 import { Tag } from "#/ui/components/Tag";
 import Image from "next/image";
 import { convertToPosition } from "#/utils/convertToPosition";
-import { MatchingCoworkerInfo } from "#/hooks/apis/useGetFeed";
 import Link from "next/link";
 import { useMatchingLike } from "#/hooks/apis/useMatchingLike";
 import useMatchedUser from "#/app/match/matchedUser.state";
