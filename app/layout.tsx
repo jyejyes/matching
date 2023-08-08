@@ -20,6 +20,7 @@ export default function RootLayout({ children }: Props) {
       <body className="flex-center bg-gray7">
         <LibraryWrapper>
           <div className="bg-white min-w-[320px] w-full max-w-[400px] h-screen overflow-x-hidden">
+            <div id="modal-root" />
             {children}
           </div>
         </LibraryWrapper>
