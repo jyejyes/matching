@@ -13,7 +13,15 @@ export const SpeechBubble = ({ subject, content }: Props) => {
         subject === "me" ? "justify-end" : "justify-start"
       )}
     >
-      <div data-subject={subject} className={styles.bubble}>
+      <div
+        data-subject={subject}
+        className={clsx(
+          styles.bubble,
+          subject === "me"
+            ? "justify-end bg-pointBlue2 text-white"
+            : "justify-start bg-white text-gray9"
+        )}
+      >
         {content}
       </div>
     </div>
