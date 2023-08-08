@@ -4,11 +4,10 @@ import { Introduce } from "#/app/people/[id]/_components/Introduce";
 import { Tag } from "#/ui/components/Tag";
 import { useSearchParams } from "next/navigation";
 import { convertToPosition } from "#/utils/convertToPosition";
+import useMatchedUser from "#/app/match/matchedUser.state";
 
 export const UserInfo = () => {
-  const query = useSearchParams();
-
-  const userData = JSON.parse(query.get("user") as string);
+  const { userInfo: userData } = useMatchedUser();
 
   return (
     <div className="flex flex-col gap-6 p-4 pb-[10px]">
@@ -20,9 +19,9 @@ export const UserInfo = () => {
         </h2>
       </div>
 
-      <HaveSkills skills={userData.skill} />
+      <HaveSkills skills={userData.skill ?? []} />
 
-      <Introduce intro={userData.intro} />
+      <Introduce intro={userData.intro ?? ""} />
     </div>
   );
 };

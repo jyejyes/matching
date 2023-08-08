@@ -24,7 +24,6 @@ export default function Page() {
     SessionStorage.setItem("userSelectedPosition", userSelectedPosition);
   };
 
-  console.log(userSelectedPosition);
   return (
     <div className="relative h-full">
       <SelectedTitle

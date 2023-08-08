@@ -1,11 +1,10 @@
 "use client";
 
 import { useParams, useSearchParams } from "next/navigation";
+import useMatchedUser from "#/app/match/matchedUser.state";
 
 export const UserImage = () => {
-  const query = useSearchParams();
-
-  const userData = JSON.parse(query.get("user") as string);
+  const { userInfo: userData } = useMatchedUser();
 
   return (
     <div>

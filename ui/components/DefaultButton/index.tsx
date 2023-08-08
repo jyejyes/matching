@@ -10,6 +10,7 @@ type Props = {
 } & PickButtonTagProps;
 
 export const DefaultButton = ({ children, disabled, ...props }: Props) => {
+  console.log(disabled);
   return (
     <button
       data-disabled={disabled}

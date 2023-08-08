@@ -7,7 +7,7 @@ import { useGetFeed } from "#/hooks/apis/useGetFeed";
 
 import { BottomNavigator } from "#/app/_components/BottomNavigator";
 import { FakeCard } from "#/app/match/_components/FakeCard";
-import { useMatchingLike } from "#/hooks/apis/useMatchingLike";
+import { MatchingSuccessPopup } from "#/app/match/_components/MatchingSuccessPopup";
 
 export default function Page() {
   const { push } = useRouter();
@@ -25,7 +25,10 @@ export default function Page() {
       <MatchTitle />
 
       <div className="relative w-full flex flex-col items-center">
-        <PeopleCard user={userCardData} className={`absolute`} />
+        <PeopleCard
+          // user={userCardData}
+          className={`absolute`}
+        />
 
         <FakeCard bgColor={"gray1"} rotate={"6"} />
         <FakeCard bgColor={"gray3"} rotate={"3"} />

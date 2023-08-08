@@ -3,7 +3,7 @@ import { InfiniteImages } from "#/app/signup/_components/InfiniteImages";
 
 export default function Page() {
   return (
-    <div className="flex-center-col h-screen">
+    <div className="flex-center-col h-[100%]">
       <InfiniteImages />
 
       <div className="flex-center-col">

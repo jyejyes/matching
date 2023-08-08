@@ -2,6 +2,7 @@ import { apiClient } from "#/hooks/apiSetting";
 import { useQuery } from "@tanstack/react-query";
 import { z } from "zod";
 import { matchSchema } from "#/types/schema/schema";
+import useMatchedUser from "#/app/match/matchedUser.state";
 
 export const MatchingCoworkerInfoSchema = z.object({
   registrationSource: matchSchema.registrationSource,
@@ -24,12 +25,18 @@ const getFeed = async () => {
 };
 
 export const useGetFeed = () => {
+  const { updateUserInfo } = useMatchedUser();
+
   const {
     isLoading,
     isError,
     data = {} as MatchingCoworkerInfo,
     isSuccess,
-  } = useQuery(["matchingCoworker"], getFeed);
+  } = useQuery(["matchingCoworker"], getFeed, {
+    onSuccess: (data) => {
+      updateUserInfo(data);
+    },
+  });
 
   return { isLoading, isError, data, isSuccess };
 };

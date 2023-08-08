@@ -5,7 +5,7 @@ import { useParams } from "next/navigation";
 
 export default function Page() {
   return (
-    <div className="w-full relative">
+    <div className="w-full h-full relative">
       <UserImage />
 
       <UserInfo />

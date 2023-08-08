@@ -9,16 +9,18 @@ import { convertToPosition } from "#/utils/convertToPosition";
 import { MatchingCoworkerInfo } from "#/hooks/apis/useGetFeed";
 import Link from "next/link";
 import { useMatchingLike } from "#/hooks/apis/useMatchingLike";
+import useMatchedUser from "#/app/match/matchedUser.state";
 
 type Props = {
-  user: MatchingCoworkerInfo;
   className?: string;
 };
 
-export const PeopleCard = ({ user, className }: Props) => {
+export const PeopleCard = ({ className }: Props) => {
   const [selectOption, setSelectOption] = useState<"like" | "dislike" | "none">(
     "none"
   );
+
+  const { userInfo: user } = useMatchedUser();
 
   const { mutate } = useMatchingLike();
 
@@ -68,7 +70,7 @@ export const PeopleCard = ({ user, className }: Props) => {
       onDragEnd={handleDragEnd}
       dragSnapToOrigin={selectOption === "none"}
       className={clsx(
-        "z-10 bg-white cursor-pointer w-[95%] h-[430px] shadow-md rounded-[12px] p-5 flex flex-col justify-between bg-center bg-no-repeat",
+        "relative z-10 bg-white cursor-pointer w-[95%] h-[430px] shadow-md rounded-[12px] p-5 flex flex-col justify-between bg-center bg-no-repeat",
 
         className
       )}
@@ -80,12 +82,7 @@ export const PeopleCard = ({ user, className }: Props) => {
           <Link
             href={{
               pathname: `/people/${user.id}`,
-              query: {
-                imgUrl: user.imgUrl,
-                user: JSON.stringify(user),
-              },
             }}
-            // as={`/people/${user.id}`}
           >
             <Image
               src={"/images/match/ic-warning.svg"}
