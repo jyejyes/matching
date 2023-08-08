@@ -1,7 +1,13 @@
-.root {
-  @apply w-full text-white p-4 rounded-[12px] text-center bg-pointBlue2;
+#test {
+  :global {
+    @apply w-full text-white p-4 rounded-[12px] text-center bg-pointBlue2;
 
-  &:disabled {
-    @apply bg-gray3;
+    &[data-disabled="false"] {
+      @apply bg-pointBlue2;
+    }
+
+    &[data-disabled="true"] {
+      @apply bg-gray3;
+    }
   }
 }
