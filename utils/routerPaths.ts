@@ -1,4 +1,5 @@
 const routerPaths = {
+  signup: () => "/signup" as string,
   selectedPosition: () => "/signup/info/position" as string,
   selectedSkills: () => "/signup/info/skills" as string,
   selectedIntro: () => "/signup/info/intro" as string,
@@ -7,6 +8,9 @@ const routerPaths = {
   matchLoading: () => "/signup/info/matchLoading" as string,
 
   match: () => "/match" as string,
+
+  chat: () => "/chat" as string,
+  chatIndividual: (userId: number) => "/chat/individual" as string,
 };
 
 export default routerPaths;
