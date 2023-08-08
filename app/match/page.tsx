@@ -16,23 +16,11 @@ export default function Page() {
 
   const handleClickCard = () => {};
 
-  //
-  const { mutate } = useMatchingLike();
-
-  const test = () => {
-    mutate({
-      toMemberId: 1,
-      like: true,
-    });
-  };
-  //
-
   if (isLoading) return <div>loading...</div>;
 
   return (
     <div className="w-full h-full p-4 relative">
       {/*<MatchingSuccessPopup />*/}
-      <button onClick={test}>ddd</button>
 
       <MatchTitle />
 

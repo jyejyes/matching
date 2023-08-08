@@ -8,6 +8,7 @@ import Image from "next/image";
 import { convertToPosition } from "#/utils/convertToPosition";
 import { MatchingCoworkerInfo } from "#/hooks/apis/useGetFeed";
 import Link from "next/link";
+import { useMatchingLike } from "#/hooks/apis/useMatchingLike";
 
 type Props = {
   user: MatchingCoworkerInfo;
@@ -19,17 +20,7 @@ export const PeopleCard = ({ user, className }: Props) => {
     "none"
   );
 
-  const handleDragStart = (
-    e: MouseEvent | PointerEvent | TouchEvent,
-    info: PanInfo
-  ) => {
-    const {
-      offset: { x: moveDirection },
-    } = info;
-
-    if (moveDirection > 0) {
-    }
-  };
+  const { mutate } = useMatchingLike();
 
   const handleDragEnd = (
     e: MouseEvent | PointerEvent | TouchEvent,
@@ -41,8 +32,20 @@ export const PeopleCard = ({ user, className }: Props) => {
 
     if (moveDirection > 100) {
       setSelectOption("like");
+
+      //좋아요 호출
+      mutate({
+        toMemberId: user.id,
+        like: true,
+      });
     } else if (moveDirection < -100) {
       setSelectOption("dislike");
+
+      //다음에 호출
+      mutate({
+        toMemberId: user.id,
+        like: false,
+      });
     }
   };
 
@@ -61,7 +64,7 @@ export const PeopleCard = ({ user, className }: Props) => {
       }}
       drag={"x"}
       whileDrag={{ scale: 0.97 }}
-      onDragStart={handleDragStart}
+      // onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       dragSnapToOrigin={selectOption === "none"}
       className={clsx(
