@@ -8,6 +8,9 @@ const authOptions: NextAuthOptions = {
       clientSecret: process.env.NEXT_PUBLIC_SECRET_KAKAO_KEY ?? "",
     }),
   ],
+
+  secret: process.env.NEXTAUTH_SECRET,
+
   callbacks: {
     async jwt({ token, account, user }) {
       // 초기 로그인시 User 정보를 가공해 반환
