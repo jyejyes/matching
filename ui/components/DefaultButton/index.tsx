@@ -11,6 +11,7 @@ type Props = {
 export const DefaultButton = ({ children, disabled, ...props }: Props) => {
   return (
     <button
+      id="default-button"
       data-disabled={disabled}
       disabled={disabled}
       className={styles.root}

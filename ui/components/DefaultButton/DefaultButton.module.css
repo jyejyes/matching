@@ -1,11 +1,7 @@
 .root {
-  @apply w-full text-white p-4 rounded-[12px] text-center;
+  @apply w-full text-white p-4 rounded-[12px] text-center bg-pointBlue2;
 
-  &[data-disabled="false"] {
-    @apply bg-pointBlue2;
-  }
-
-  &[data-disabled="true"] {
+  &:disabled {
     @apply bg-gray3;
   }
 }
