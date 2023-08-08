@@ -1,0 +1,11 @@
+.bubble {
+  @apply w-fit h-fit py-2 px-3 rounded-[12px] max-w-[270px] text-[15px];
+
+  &[data-subject="me"] {
+    @apply bg-pointBlue2 text-white;
+  }
+
+  &[data-subject="you"] {
+    @apply bg-white text-gray9;
+  }
+}
