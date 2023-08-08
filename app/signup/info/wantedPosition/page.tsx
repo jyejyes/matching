@@ -8,19 +8,17 @@ import { POSITIONS } from "#/constant/signup.constant";
 import { SelectedButton } from "#/ui/components/SelectedButton";
 import { DefaultButton } from "#/ui/components/DefaultButton";
 import useUserInfo, { UserInfoState } from "#/app/signup/store/useUserInfo";
-import { Session } from "next-auth";
 import { apiClient } from "#/hooks/apiSetting";
 import SessionStorage from "#/utils/SessionStorage";
-import { router } from "next/client";
 import { useLogin } from "#/hooks/apis/useLogin";
 
 export default function Page() {
   const { push } = useRouter();
 
-  const userInfo = JSON.parse(SessionStorage.getItem("user") ?? "");
+  const userInfo = JSON.parse(SessionStorage.getItem("user") ?? "{}");
 
   const { id: userProviderId, name: username } = JSON.parse(
-    SessionStorage.getItem("user") ?? ""
+    SessionStorage.getItem("user") ?? "{}"
   );
 
   const {

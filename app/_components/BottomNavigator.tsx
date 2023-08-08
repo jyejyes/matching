@@ -20,13 +20,6 @@ const ICON = [
 ];
 
 export const BottomNavigator = () => {
-  const pathname = window.location.pathname.replace("/", "");
-  const { push } = useRouter();
-
-  const handleClickIcon = (name: string) => {
-    push(`/${name}`);
-  };
-
   return (
     <div
       className={"w-full h-[58px] bg-white flex border-t-gray1 border-[1px]"}
@@ -35,13 +28,14 @@ export const BottomNavigator = () => {
         <div
           key={index}
           className="flex-1 flex-center cursor-pointer"
-          onClick={() => handleClickIcon(icon.name)}
+          // onClick={() => handleClickIcon(icon.name)}
         >
           <Image
             src={
-              pathname === icon.name
-                ? icon.selectedIconUrl
-                : icon.defaultIconUrl
+              icon.defaultIconUrl
+              // pathname === icon.name
+              //   ? icon.selectedIconUrl
+              //   : icon.defaultIconUrl
             }
             alt={icon.name}
             width={24}

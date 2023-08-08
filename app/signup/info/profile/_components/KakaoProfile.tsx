@@ -9,7 +9,8 @@ import SessionStorage from "#/utils/SessionStorage";
 export default function KakaoProfile() {
   // TODO: 타입 지정하기
   // 유틸함수 만들기 : type 지정하는거- 자동으로 스토리지 저장되게
-  const userKaKaoImageUrl = JSON.parse(SessionStorage.getItem("user") ?? "");
+
+  const userKaKaoImageUrl = JSON.parse(SessionStorage.getItem("user") ?? "{}");
 
   const { imgUrl, updateImgUrl } = useUserInfo();
 
