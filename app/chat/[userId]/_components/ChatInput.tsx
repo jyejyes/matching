@@ -44,11 +44,7 @@ export default function ChatInput() {
         onChange={(e) => setUserMessage(e.target.value)}
       />
 
-      <ArrowUp
-        disabled={!userMessage}
-        isActive={!!userMessage}
-        onClick={handleClickSend}
-      />
+      <ArrowUp disabled={!userMessage} onClick={handleClickSend} />
     </div>
   );
 }
