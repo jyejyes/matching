@@ -22,9 +22,9 @@ export default function Buttons() {
   return (
     //   TODO: fixed로 변경해야함
     <div className="sticky bottom-0 p-8 w-full flex-center gap-10 bg-gradient-to-b from-transparent to-gray5/80">
-      <UnlikeButton onClick={handleClickUnlike} />
+      <UnlikeButton status="people" onClick={handleClickUnlike} />
 
-      <LikeButton onClick={handleClickLike} />
+      <LikeButton status="people" onClick={handleClickLike} />
     </div>
   );
 }
