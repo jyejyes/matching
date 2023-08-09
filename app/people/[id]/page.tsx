@@ -5,10 +5,12 @@ import { useParams } from "next/navigation";
 
 export default function Page() {
   return (
-    <div className="w-full h-full relative">
-      <UserImage />
+    <div className="w-full h-full relative flex flex-col justify-between">
+      <div>
+        <UserImage />
 
-      <UserInfo />
+        <UserInfo />
+      </div>
 
       <Buttons />
     </div>
