@@ -12,6 +12,7 @@ import { UnlikeButton } from "#/app/match/_components/UnlikeButton";
 import { LikeButton } from "#/app/match/_components/LikeButton";
 import Image from "next/image";
 import useModalControl from "#/app/modalControl.state";
+import { Loading } from "#/app/_components/Loading";
 
 const dummy = [
   {
@@ -80,7 +81,7 @@ export default function Page() {
 
   const handleClickCard = () => {};
 
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading) return <Loading />;
 
   return (
     <div className="w-full h-full p-4 relative">
