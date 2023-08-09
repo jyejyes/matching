@@ -32,7 +32,7 @@ export default function Page() {
   } = useUserInfo();
 
   //로그인 hook
-  const { mutate: serviceLogin, isSuccess } = useLogin();
+  const { mutateAsync: serviceLogin, isSuccess } = useLogin();
 
   const handleClickBackButton = () => {
     push(routerPaths.selectedProfile());
@@ -68,7 +68,11 @@ export default function Page() {
 
       if (data.code === 1102) {
         //로그인 호출하고
-        serviceLogin(userInfo);
+        const res = await serviceLogin(userInfo);
+
+        if (res.code === 1101) {
+          push(routerPaths.matchLoading());
+        }
 
         return;
       }

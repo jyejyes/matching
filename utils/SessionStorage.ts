@@ -18,6 +18,12 @@ class SessionStorage {
       sessionStorage.removeItem(key);
     }
   }
+
+  static clear() {
+    if (typeof window !== "undefined") {
+      sessionStorage.clear();
+    }
+  }
 }
 
 export default SessionStorage;
