@@ -74,7 +74,6 @@ const dummy = [
 export default function Page() {
   const { push } = useRouter();
 
-  // const { isLoading, data: userCardData } = useGetFeed();
   const { data: todayUsers, isLoading } = useGetAllFeed();
 
   const { isMatchingSuccessModalOpen } = useModalControl();
@@ -100,23 +99,20 @@ export default function Page() {
         <p className="mt-5 font-bold text-pointBlue2">
           오늘 자정이 지나면 다시 추천드릴게요!
         </p>
-        {todayUsers
-          .slice(0, 3)
-          .reverse()
-          .map((item, i) => {
-            const lastIndex = dummy.slice(0, 3).length - 1;
-            const rotateDegree = (lastIndex - i) * 3; // 반대로 회전
+        {todayUsers.slice(0, 3).map((item, i) => {
+          const lastIndex = dummy.slice(0, 3).length - 1;
+          const rotateDegree = (lastIndex - i) * 3; // 반대로 회전
 
-            return (
-              <div key={i} className="w-full absolute flex-center">
-                <PeopleCard
-                  user={item}
-                  rotateDegree={rotateDegree}
-                  displayedCardIndex={i}
-                />
-              </div>
-            );
-          })}
+          return (
+            <div key={i} className="w-full h-full absolute flex-center">
+              <PeopleCard
+                user={item}
+                rotateDegree={rotateDegree}
+                displayedCardIndex={i}
+              />
+            </div>
+          );
+        })}
       </div>
 
       {
