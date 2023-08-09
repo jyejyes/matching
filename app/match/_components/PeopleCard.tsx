@@ -8,22 +8,29 @@ import Image from "next/image";
 import { convertToPosition } from "#/utils/convertToPosition";
 import Link from "next/link";
 import { useMatchingLike } from "#/hooks/apis/useMatchingLike";
-import useMatchedUser from "#/app/match/matchedUser.state";
+import { MatchingCoworkerInfo } from "#/hooks/apis/useGetFeed";
 
 type Props = {
+  user: MatchingCoworkerInfo;
+  rotateDegree: number;
   className?: string;
+  imgBlur?: boolean;
+  displayedCardIndex?: number;
 };
 
-export const PeopleCard = ({ className }: Props) => {
+export const PeopleCard = ({
+  user,
+  rotateDegree,
+  className,
+  displayedCardIndex,
+}: Props) => {
   const [selectOption, setSelectOption] = useState<"like" | "dislike" | "none">(
     "none"
   );
 
-  const { userInfo: user } = useMatchedUser();
+  const { mutateAsync: selectedLike } = useMatchingLike();
 
-  const { mutate } = useMatchingLike();
-
-  const handleDragEnd = (
+  const handleDragEnd = async (
     e: MouseEvent | PointerEvent | TouchEvent,
     info: PanInfo
   ) => {
@@ -35,15 +42,18 @@ export const PeopleCard = ({ className }: Props) => {
       setSelectOption("like");
 
       //좋아요 호출
-      mutate({
+      const res = await selectedLike({
         toMemberId: user.id,
         like: true,
       });
+
+      if (res.code === 1000) {
+      }
     } else if (moveDirection < -100) {
       setSelectOption("dislike");
 
       //다음에 호출
-      mutate({
+      const res = await selectedLike({
         toMemberId: user.id,
         like: false,
       });
@@ -52,9 +62,6 @@ export const PeopleCard = ({ className }: Props) => {
 
   return (
     <motion.div
-      style={{
-        backgroundImage: `url(${user.imgUrl})`,
-      }}
       animate={{
         x:
           selectOption === "like"
@@ -62,51 +69,73 @@ export const PeopleCard = ({ className }: Props) => {
             : selectOption === "dislike"
             ? "-110%"
             : 0,
+        rotateZ: rotateDegree,
       }}
       drag={"x"}
       whileDrag={{ scale: 0.97 }}
-      // onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       dragSnapToOrigin={selectOption === "none"}
       className={clsx(
-        "relative z-10 bg-white cursor-pointer w-[95%] h-[430px] shadow-md rounded-[12px] p-5 flex flex-col justify-between bg-center bg-no-repeat",
+        "relative overflow-hidden z-10 bg-white cursor-pointer w-[95%] h-[430px] shadow-md rounded-[12px] p-5 flex flex-col",
 
         className
       )}
     >
-      <div className="flex flex-col gap-[10px]">
-        <div className="flex justify-between">
-          <Tag type="job">{convertToPosition(user.position)}</Tag>
+      {displayedCardIndex === 2 && (
+        <img
+          src={user?.imgUrl ?? ""}
+          alt={user?.username ?? "정해지지 않음"}
+          className="absolute left-0 top-0 w-full h-full"
+        />
+      )}
 
-          <Link
-            href={{
-              pathname: `/people/${user.id}`,
-            }}
-          >
-            <Image
-              src={"/images/match/ic-warning.svg"}
-              alt={"warning"}
-              width={28}
-              height={28}
-              className={"cursor-pointer"}
-            />
-          </Link>
+      {displayedCardIndex === 1 && (
+        <div className="absolute left-0 top-0 w-full h-full bg-gray3 z-30" />
+      )}
+
+      {displayedCardIndex === 0 && (
+        <div className="absolute left-0 top-0 w-full h-full bg-gray2 z-30" />
+      )}
+
+      <div className="z-10 w-full h-full flex flex-col justify-between">
+        <div className="flex flex-col gap-[10px]">
+          <div className="flex justify-between">
+            <Tag type="job">
+              {convertToPosition(user?.position ?? "정해지지 않음")}
+            </Tag>
+
+            <Link
+              href={{
+                pathname: `/people/${user?.id}`,
+              }}
+            >
+              <Image
+                src={"/images/match/ic-warning.svg"}
+                alt={"warning"}
+                width={28}
+                height={28}
+                className={"cursor-pointer"}
+              />
+            </Link>
+          </div>
+
+          <h2 className="text-[30px] font-extrabold text-white">
+            {user?.username ?? "정해지지 않음"}
+          </h2>
         </div>
 
-        <h2 className="text-[30px] font-extrabold text-white">
-          {user.username}
-        </h2>
-      </div>
+        <div>
+          <p className="text-[14px] font-extrabold mb-3 text-white">
+            보유 기술
+          </p>
 
-      <div>
-        <p className="text-[14px] font-extrabold mb-3 text-white">보유 기술</p>
-
-        <div className="flex flex-wrap gap-1">
-          {user.skill.map((item, i) => (
-            <Tag type="language" key={i}>
-              {item}
-            </Tag>
-          ))}
+          <div className="flex flex-wrap gap-1">
+            {user?.skill?.map((item, i) => (
+              <Tag type="language" key={i}>
+                {item}
+              </Tag>
+            ))}
+          </div>
         </div>
       </div>
     </motion.div>

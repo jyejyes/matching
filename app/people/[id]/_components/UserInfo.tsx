@@ -4,10 +4,10 @@ import { Introduce } from "#/app/people/[id]/_components/Introduce";
 import { Tag } from "#/ui/components/Tag";
 import { useSearchParams } from "next/navigation";
 import { convertToPosition } from "#/utils/convertToPosition";
-import useMatchedUser from "#/app/match/matchedUser.state";
+import { useFeedUser } from "#/app/match/matching.state";
 
 export const UserInfo = () => {
-  const { userInfo: userData } = useMatchedUser();
+  const { userInfo: userData } = useFeedUser();
 
   return (
     <div className="flex flex-col gap-6 p-4 pb-[10px]">

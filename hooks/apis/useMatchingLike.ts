@@ -1,12 +1,16 @@
 import { apiClient } from "#/hooks/apiSetting";
 import {
-  chatSchema,
+  ChatSchema,
+  fromToUserSchema,
   matchingLikeSchema,
   matchSchema,
   userSchema,
 } from "#/types/schema/schema";
 import { z } from "zod";
 import { useMutation } from "@tanstack/react-query";
+import { useGetFeed } from "#/hooks/apis/useGetFeed";
+import useModalControl from "#/app/modalControl.state";
+import { useMatchingSuccessInfo } from "#/app/match/matching.state";
 
 //요청 타입
 const UserLikeSchema = z.object({
@@ -17,31 +21,22 @@ const UserLikeSchema = z.object({
 type UserLikeType = z.infer<typeof UserLikeSchema>;
 
 //응답 타입
-const UserLikeResponseSchema = z.object({
+export const UserLikeResponseSchema = z.object({
   usedCount: z.number(),
   isMatched: z.boolean(),
   matchInfo: z
     .object({
       id: matchSchema.id,
-      fromMember: z.object({
-        id: userSchema.id,
-        username: userSchema.username,
-        position: userSchema.position,
-        imgUrl: userSchema.imgUrl,
-      }),
-      toMember: z.object({
-        id: userSchema.id,
-        username: userSchema.username,
-        position: userSchema.position,
-        imgUrl: userSchema.imgUrl,
-      }),
+      fromMember: fromToUserSchema,
+      toMember: fromToUserSchema,
       matchTime: matchSchema.matchTime,
+      isChecked: z.boolean(),
     })
     .nullish(),
-  messageRoomId: chatSchema.messageRoomId.nullish(),
+  messageRoomId: ChatSchema.messageRoomId.nullish(),
 });
 
-type UserLikeResponseType = z.infer<typeof UserLikeResponseSchema>;
+export type UserLikeResponseType = z.infer<typeof UserLikeResponseSchema>;
 
 const matchingLike = async (isUserLike: UserLikeType) => {
   const response = await apiClient.post("/match/like", isUserLike);
@@ -51,11 +46,27 @@ const matchingLike = async (isUserLike: UserLikeType) => {
 };
 
 export const useMatchingLike = () => {
+  const { updateIsMatchingSuccessModalOpen } = useModalControl(); //매칭 성사 모달
+
+  const { updateMatchingSuccessInfo } = useMatchingSuccessInfo();
+
   return useMutation(matchingLike, {
     onSuccess(res) {
-      console.log(res);
       if (res.code === 4201) {
         reset();
+
+        return;
+      }
+
+      //매칭 됐을 때
+      if (res.data.isMatched) {
+        //매칭 완료 창 띄우기
+        updateIsMatchingSuccessModalOpen(true);
+
+        //대상자 정보 저장
+        updateMatchingSuccessInfo(res.data);
+
+        return;
       }
     },
   });
@@ -63,7 +74,7 @@ export const useMatchingLike = () => {
 
 const reset = async () => {
   try {
-    const response = await apiClient.post("/test/reset");
+    const response = await apiClient.get("/test/reset");
     console.log(response);
   } catch (e) {
     console.log(e);
