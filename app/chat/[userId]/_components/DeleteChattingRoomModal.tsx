@@ -13,6 +13,8 @@ export const DeleteChattingRoomModal = () => {
   const handleClickDelete = () => {
     // 삭제 로직 로직
     // mutate(2);
+    //삭제 성공하면
+    push(routerPaths.chat());
   };
 
   const handleClickCancel = () => {

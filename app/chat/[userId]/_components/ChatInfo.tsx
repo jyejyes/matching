@@ -20,7 +20,7 @@ export default function ChatInfo() {
   };
 
   return (
-    <div className="w-full bg-white flex p-4">
+    <header className="w-full bg-white flex p-4">
       <Image
         src={"/images/chat/ic-back.svg"}
         alt={"back"}
@@ -42,6 +42,6 @@ export default function ChatInfo() {
         className={"cursor-pointer"}
         onClick={handleClickTrash}
       />
-    </div>
+    </header>
   );
 }
