@@ -17,9 +17,9 @@ type Props = {
 export default function RootLayout({ children }: Props) {
   return (
     <html lang="en" className="h-[100%]">
-      <body className="flex-center bg-gray7 h-full">
+      <body className="flex-center  h-full  mobile:bg-gray7">
         <LibraryWrapper>
-          <div className="bg-white min-w-[320px] w-full max-w-[430px] h-[100%] overflow-x-hidden">
+          <div className="rounded-[8px] bg-white min-w-[320px] w-full max-w-[430px] h-[100%] overflow-x-hidden">
             <div id="modal-root" />
             {children}
           </div>

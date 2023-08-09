@@ -18,6 +18,10 @@ export default {
     8: "8px",
   },
   theme: {
+    screens: {
+      mobile: "430px",
+    },
+
     extend: {
       colors: {
         white: "#FFFFFF",
