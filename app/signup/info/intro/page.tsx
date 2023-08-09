@@ -46,7 +46,7 @@ export default function Page() {
       />
 
       <textarea
-        className="w-full h-[207px] bg-gray1 border-none resize-none  rounded-[12px] p-5 text-gray9 text-[15px] leading-[23px]"
+        className="w-full h-[207px] bg-gray1 border-none resize-none  rounded-[12px] p-5 text-gray9 text-[15px] leading-[23px] focus:ring-0"
         maxLength={500}
         value={intro}
         onChange={handleChangeIntro}
