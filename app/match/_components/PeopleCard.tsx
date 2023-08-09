@@ -76,7 +76,7 @@ export const PeopleCard = ({
       onDragEnd={handleDragEnd}
       dragSnapToOrigin={selectOption === "none"}
       className={clsx(
-        "relative overflow-hidden z-10 bg-white cursor-pointer w-[95%] h-[430px] shadow-md rounded-[12px] p-5 flex flex-col",
+        "relative overflow-hidden z-10 bg-white cursor-pointer w-[95%] min-h-[300px] max-h-[430px] h-full shadow-md rounded-[12px] p-5 flex flex-col",
 
         className
       )}
