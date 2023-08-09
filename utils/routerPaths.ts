@@ -10,7 +10,7 @@ const routerPaths = {
   match: () => "/match" as string,
 
   chat: () => "/chat" as string,
-  chatIndividual: (userId: number) => "/chat/individual" as string,
+  chattingRoom: (userId: number) => "/chat/individual" as string,
 };
 
 export default routerPaths;

@@ -34,6 +34,13 @@ export const userSchema = {
   username: z.string(),
 };
 
+export const fromToUserSchema = z.object({
+  id: userSchema.id,
+  username: userSchema.username,
+  position: userSchema.position,
+  imgUrl: userSchema.imgUrl,
+});
+
 export const TimeSchema = {
   time: z.string(),
 };
@@ -54,6 +61,16 @@ export const matchingLikeSchema = {
   like: z.boolean(),
 };
 
-export const chatSchema = {
+export const ChatSchema = {
   messageRoomId: z.number(),
+  createdTime: TimeSchema.time,
+};
+
+export const MessageSchema = {
+  messageId: z.number(),
+  content: z.string(),
+  messageWriterId: userSchema.id,
+  isRead: z.boolean(),
+  messageCreatedTime: TimeSchema.time,
+  isNewMessageInRoom: z.boolean(),
 };
