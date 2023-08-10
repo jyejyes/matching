@@ -31,6 +31,7 @@ export default function Page() {
     interest: userSelectedInterest,
     updateInterest,
     deleteInterest,
+    deleteAll,
   } = useUserInfo();
 
   //로그인 hook
@@ -69,6 +70,9 @@ export default function Page() {
       });
 
       if (data.code === 1102) {
+        //회원가입에 저장된 정보들 일단 삭제
+        deleteAll();
+
         const user = userInfo;
         //로그인 호출하고
         const res = await serviceLogin({
