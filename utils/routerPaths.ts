@@ -11,6 +11,8 @@ const routerPaths = {
 
   chat: () => "/chat" as string,
   chattingRoom: (userId: number) => "/chat/individual" as string,
+
+  people: (userId: number) => `/people/${userId}` as string,
 };
 
 export default routerPaths;
