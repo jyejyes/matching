@@ -5,6 +5,7 @@ import { ChattingRoomPreview } from "#/app/chat/_components/ChattingRoomPreview"
 import { BottomNavigator } from "#/app/_components/BottomNavigator";
 import { useRouter } from "next/navigation";
 import { useGetMessages } from "#/hooks/apis/useGetMessages";
+import { Loading } from "#/app/_components/Loading";
 
 export default function Page() {
   const { push } = useRouter();
@@ -16,7 +17,7 @@ export default function Page() {
       <h1 className="text-[24px] font-bold mt-[10px] mb-[14px]">채팅</h1>
 
       {isLoading ? (
-        <div>loading...</div>
+        <Loading />
       ) : messageRes?.messageRooms?.length === 0 ? (
         <div>생성된 방이 없습니다.</div>
       ) : (
