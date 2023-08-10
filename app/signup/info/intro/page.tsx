@@ -46,10 +46,11 @@ export default function Page() {
       />
 
       <textarea
-        className="w-full h-[207px] bg-gray1 border-none resize-none  rounded-[12px] p-5 text-gray9 text-[15px] leading-[23px] focus:ring-0"
+        className="w-full h-[207px] bg-gray1 border-none resize-none  rounded-[12px] p-5 text-gray9 text-[15px] leading-[23px] focus:ring-0 placeholder-gray5"
         maxLength={500}
         value={intro}
         onChange={handleChangeIntro}
+        placeholder={"자기소개 입력 (최대 500자)"}
       />
 
       <div className="absolute bottom-0 w-full">

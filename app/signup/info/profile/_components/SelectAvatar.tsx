@@ -19,7 +19,7 @@ export default function SelectAvatar() {
     <div className="flex flex-col gap-[18px]">
       <p className="text-pointBlue2 font-bold">아바타 선택</p>
 
-      <div className="grid grid-cols-3 gap-[14px]">
+      <div className="w-full flex flex-wrap gap-3 justify-between pb-[70px]">
         {data &&
           data.map((item, i) => (
             <SelectedImage
