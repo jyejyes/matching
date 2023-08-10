@@ -10,6 +10,7 @@ import Image from "next/image";
 import routerPaths from "#/utils/routerPaths";
 import { useGetSkills } from "#/hooks/apis/useGetSkills";
 import SessionStorage from "#/utils/SessionStorage";
+import { Loading } from "#/app/_components/Loading";
 
 async function getSkills() {}
 export default function Page() {
@@ -48,7 +49,7 @@ export default function Page() {
     updateSkills(skill);
   };
 
-  if (isLoading) return <div>loading...</div>;
+  if (isLoading) return <Loading />;
 
   return (
     <div className="relative h-full">
