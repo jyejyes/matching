@@ -8,9 +8,5 @@ const deleteUser = async () => {
 };
 
 export const useDeleteUser = () => {
-  return useMutation(deleteUser, {
-    onSuccess(res) {
-      console.log(res);
-    },
-  });
+  return useMutation(deleteUser, {});
 };
