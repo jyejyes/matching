@@ -4,8 +4,6 @@ import useModalControl from "#/app/modalControl.state";
 import { useRouter } from "next/navigation";
 import routerPaths from "#/utils/routerPaths";
 import { useDeleteUser } from "#/hooks/apis/useDeleteUser";
-import SessionStorage from "#/utils/SessionStorage";
-import { removeCookie } from "#/utils/Cookie/Cookie";
 
 export const DeleteModal = () => {
   const { isDeleteModalOpen, updateIsDeleteModalOpen } = useModalControl();
@@ -17,11 +15,11 @@ export const DeleteModal = () => {
     // 탈퇴 로직
     deleteUser();
 
-    SessionStorage.clear();
-    removeCookie("next-auth.session-token");
-    removeCookie("next-auth.csrf-token");
-    removeCookie("token");
-    removeCookie("next-auth.callback-url");
+    // SessionStorage.clear();
+    // removeCookie("next-auth.session-token");
+    // removeCookie("next-auth.csrf-token");
+    // removeCookie("token");
+    // removeCookie("next-auth.callback-url");
 
     push(routerPaths.signup());
   };

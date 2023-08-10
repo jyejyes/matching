@@ -3,18 +3,32 @@ import { Modal } from "#/ui/components/modal/Modal";
 import useModalControl from "#/app/modalControl.state";
 import { useRouter } from "next/navigation";
 import routerPaths from "#/utils/routerPaths";
+import { useDeleteMatch } from "#/hooks/apis/useDeleteMatch";
 
-export const DeleteChattingRoomModal = () => {
+type Props = {
+  chatId: number;
+};
+export const DeleteChattingRoomModal = ({ chatId }: Props) => {
   const { isDeleteChatModalOpen, updateIsDeleteChatModalOpen } =
     useModalControl();
 
   const { push } = useRouter();
 
-  const handleClickDelete = () => {
-    // 삭제 로직 로직
-    // mutate(2);
-    //삭제 성공하면
-    push(routerPaths.chat());
+  const { mutateAsync: deleteUser } = useDeleteMatch();
+
+  const handleClickDelete = async () => {
+    try {
+      const res = await deleteUser(chatId);
+
+      // 성공 코드
+      if (res.code === 1202) {
+        push(routerPaths.chat());
+
+        return;
+      }
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   const handleClickCancel = () => {

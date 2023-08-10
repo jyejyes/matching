@@ -17,7 +17,9 @@ export default function Page() {
 
   return (
     <div className="w-full h-full flex flex-col overflow-hidden relative bg-gray1">
-      {isDeleteChatModalOpen && <DeleteChattingRoomModal />}
+      {isDeleteChatModalOpen && (
+        <DeleteChattingRoomModal chatId={messageRoomInfo.matchId} />
+      )}
 
       <ChatInfo />
 
