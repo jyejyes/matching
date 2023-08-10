@@ -4,7 +4,7 @@ import { useMutation } from "@tanstack/react-query";
 
 const deleteMatchSchema = {};
 const deleteMatch = async (matchId: number) => {
-  const response = await apiClient.delete(`/match`);
+  const response = await apiClient.delete(`/match/${matchId}`);
 
   return response.data;
 };
