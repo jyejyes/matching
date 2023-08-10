@@ -27,8 +27,6 @@ const getAllFeed = async () => {
 };
 
 export const useGetAllFeed = () => {
-  const { updateUserInfo } = useFeedUser();
-
   const { updateTodayMatchingUsers } = useTodayMatchingUsers();
 
   const {
