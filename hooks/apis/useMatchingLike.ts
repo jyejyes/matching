@@ -52,7 +52,7 @@ export const useMatchingLike = () => {
 
   return useMutation(matchingLike, {
     onSuccess(res) {
-      if (res.code === 4201) {
+      if (res.data.usedCount === 5) {
         reset();
 
         return;
@@ -75,7 +75,6 @@ export const useMatchingLike = () => {
 const reset = async () => {
   try {
     const response = await apiClient.get("/test/reset");
-    console.log(response);
   } catch (e) {
     console.log(e);
   }
