@@ -3,6 +3,7 @@ import { signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useLogin } from "#/hooks/apis/useLogin";
 import LocalStorage from "#/utils/LocalStorage";
+import Image from "next/image";
 
 export const SocialLogin = () => {
   const { data: session, status } = useSession();
@@ -32,9 +33,16 @@ export const SocialLogin = () => {
 
       <button
         onClick={() => signIn()}
-        className="py-[14px] px-[18px] text-gray9 font-bold bg-kakaoYellow rounded-[80px]"
+        className="py-[14px] px-[18px] text-gray9 font-bold bg-kakaoYellow rounded-[80px] flex items-center gap-2"
       >
-        카카오로 시작
+        <Image
+          src={"/images/signup/ic-kakao@x2.png"}
+          alt={"kakao"}
+          width={30}
+          height={30}
+        />
+
+        <p>카카오로 시작</p>
       </button>
     </>
   );
