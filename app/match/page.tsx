@@ -14,64 +14,6 @@ import Image from "next/image";
 import useModalControl from "#/app/modalControl.state";
 import { Loading } from "#/app/_components/Loading";
 
-const dummy = [
-  {
-    registrationSource: "1",
-    id: 1,
-    imgUrl: "https://i.pravatar.cc/150?u=fake@pravatar.com",
-    interest: ["1", "2", "3"],
-    intro: "1",
-    position: "BACK_END",
-    skill: ["1", "2"],
-    userProviderId: "1",
-    username: "1",
-  },
-  {
-    registrationSource: "2",
-    id: 2,
-    imgUrl: "https://i.pravatar.cc/150?u=fake@pravatar",
-    interest: ["1"],
-    intro: "2",
-    position: "BACK_END",
-    skill: ["1"],
-    userProviderId: "2",
-    username: "2",
-  },
-  {
-    registrationSource: "3",
-    id: 3,
-    imgUrl: "https://i.pravatar.cc/150?u=fake@pravatar.com",
-    interest: ["1"],
-    intro: "3",
-    position: "FRONT_END",
-    skill: ["1"],
-    userProviderId: "3",
-    username: "3",
-  },
-  {
-    registrationSource: "4",
-    id: 4,
-    imgUrl: "https://i.pravatar.cc/150?u=fake@pravatar",
-    interest: ["1"],
-    intro: "4",
-    position: "FRONT_END",
-    skill: ["1"],
-    userProviderId: "4",
-    username: "4",
-  },
-  {
-    registrationSource: "5",
-    id: 5,
-    imgUrl: "https://i.pravatar.cc/150?u=fake@pravatar.com",
-    interest: ["1"],
-    intro: "5",
-    position: "BACK_END",
-    skill: ["1"],
-    userProviderId: "5",
-    username: "5",
-  },
-];
-
 export default function Page() {
   const { push } = useRouter();
 
@@ -87,7 +29,7 @@ export default function Page() {
     <div className="w-full h-full p-4 relative">
       {isMatchingSuccessModalOpen && <MatchingSuccessPopup />}
 
-      <MatchTitle />
+      <MatchTitle numberOfPeople={todayUsers.length} />
 
       <div className="relative w-full h-[calc(100%-250px)] flex-center-col">
         <Image
@@ -101,7 +43,7 @@ export default function Page() {
           오늘 자정이 지나면 다시 추천드릴게요!
         </p>
         {todayUsers.slice(0, 3).map((item, i) => {
-          const lastIndex = dummy.slice(0, 3).length - 1;
+          const lastIndex = todayUsers.slice(0, 3).length - 1;
           const rotateDegree = (lastIndex - i) * 3; // 반대로 회전
 
           return (
