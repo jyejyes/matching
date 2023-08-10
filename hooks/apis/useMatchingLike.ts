@@ -52,7 +52,7 @@ export const useMatchingLike = () => {
 
   return useMutation(matchingLike, {
     onSuccess(res) {
-      if (res.data.usedCount === 5) {
+      if (res.data.usedCount === 1000) {
         reset();
 
         return;
