@@ -1,7 +1,7 @@
 import { apiClient } from "#/hooks/apiSetting";
 import { z } from "zod";
 import { useQuery } from "@tanstack/react-query";
-import { MessageSchema, userSchema } from "#/types/schema/schema";
+import { matchSchema, MessageSchema, userSchema } from "#/types/schema/schema";
 
 export const MsgSchema = z.object({
   id: MessageSchema.messageId,
@@ -13,6 +13,7 @@ export const MsgSchema = z.object({
 
 export const MessageRoomSchema = z.object({
   loginMemberId: userSchema.id,
+  matchId: matchSchema.id,
   messages: z.array(MsgSchema),
 });
 
