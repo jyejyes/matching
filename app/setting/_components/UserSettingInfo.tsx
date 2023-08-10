@@ -8,7 +8,7 @@ export default function UserSettingInfo() {
   if (isLoading) return <div>loading...</div>;
 
   return (
-    <div className="w-full flex gap-2">
+    <div className="w-full flex gap-2 items-center">
       {/*<Image cla/>*/}
       <div className="rounded-full w-[50px] h-[50px] overflow-hidden">
         <img
@@ -20,8 +20,6 @@ export default function UserSettingInfo() {
 
       <div className="flex flex-col">
         <p className="text-[18px] font-bold">{userInfo.username}</p>
-
-        <p className="text-[14px] text-gray6">email</p>
       </div>
     </div>
   );
