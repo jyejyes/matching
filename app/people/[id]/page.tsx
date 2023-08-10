@@ -9,13 +9,17 @@ import routerPaths from "#/utils/routerPaths";
 import useModalControl from "#/app/modalControl.state";
 import { MatchingToast } from "#/ui/components/Toast/MatchingToast";
 import { useUserChoiceInfo } from "#/app/match/matching.state";
+import { MatchingSuccessPopup } from "#/app/match/_components/MatchingSuccessPopup";
 
 export default function Page() {
-  const { isMatchingModalOpen } = useModalControl();
+  const { isMatchingModalOpen, isMatchingSuccessModalOpen } = useModalControl();
   const { userChoice } = useUserChoiceInfo();
 
   return (
     <div className="w-full h-full relative flex flex-col justify-between">
+      {/*z-index: 50*/}
+      {isMatchingSuccessModalOpen && <MatchingSuccessPopup />}
+
       {isMatchingModalOpen && (
         <MatchingToast
           isLike={userChoice === "like"}

@@ -12,7 +12,8 @@ import { useFeedUser, useUserChoiceInfo } from "#/app/match/matching.state";
 export default function Buttons() {
   const { push } = useRouter();
 
-  const { isMatchingModalOpen, updateIsMatchingModalOpen } = useModalControl();
+  const { updateIsMatchingModalOpen, isMatchingSuccessModalOpen } =
+    useModalControl();
   const { userInfo: userData } = useFeedUser();
   const { updateUserChoice } = useUserChoiceInfo();
 
@@ -32,7 +33,7 @@ export default function Buttons() {
       setTimeout(() => {
         updateIsMatchingModalOpen(false);
 
-        push(routerPaths.match());
+        if (!isMatchingSuccessModalOpen) push(routerPaths.match());
       }, 1000);
     }
   };

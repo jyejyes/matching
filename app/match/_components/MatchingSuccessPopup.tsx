@@ -9,8 +9,6 @@ export const MatchingSuccessPopup = () => {
   //매칭 대상자 정보 불러오고(zustand로)
   const { matchingSuccessInfo } = useMatchingSuccessInfo();
 
-  console.log(matchingSuccessInfo);
-
   const { push } = useRouter();
 
   const { updateIsMatchingSuccessModalOpen } = useModalControl();
@@ -62,7 +60,7 @@ export const MatchingSuccessPopup = () => {
 
       <div className="flex flex-col gap-4">
         <button
-          className="bg-pointBlue2 rounded-[80px] text-white font-bold text-[15px] py-[14px] w-[220px] flex-center gap-2"
+          className="shadow-md bg-pointBlue2 rounded-[80px] text-white font-bold text-[15px] py-[14px] w-[220px] flex-center gap-2"
           onClick={moveChatting}
         >
           <Image
@@ -74,7 +72,7 @@ export const MatchingSuccessPopup = () => {
           대화 시작하기
         </button>
         <button
-          className="bg-white rounded-[80px] text-pointBlue2 font-bold text-[15px] py-[14px] w-[220px] flex-center gap-2"
+          className="shadow-md bg-white rounded-[80px] text-pointBlue2 font-bold text-[15px] py-[14px] w-[220px] flex-center gap-2"
           onClick={keepMatching}
         >
           <Image
