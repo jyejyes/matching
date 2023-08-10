@@ -3,6 +3,7 @@ import { MatchingCoworkerInfo } from "#/hooks/apis/useGetFeed";
 import { UserLikeResponseSchema } from "#/hooks/apis/useMatchingLike";
 import { z } from "zod";
 
+//현재 화면에 표시되는 매칭 대상자 정보 저장
 type UserInfoState = {
   userInfo: MatchingCoworkerInfo;
   updateUserInfo: (newUserInfo: MatchingCoworkerInfo) => void;
@@ -15,8 +16,29 @@ export const useFeedUser = create<MatchingState>((set) => ({
     set({ userInfo: newUserInfo }),
 }));
 
-//
+//오늘의 매칭 대상자 전체 저장
 
+type TodayMatchingUsersType = {
+  todayMatchingUsers: MatchingCoworkerInfo[];
+  updateTodayMatchingUsers: (
+    newTodayMatchingUsers: MatchingCoworkerInfo[]
+  ) => void;
+  deleteTodayMatchingUsers: (userIdToDelete: number) => void;
+};
+export const useTodayMatchingUsers = create<TodayMatchingUsersType>((set) => ({
+  todayMatchingUsers: [],
+  updateTodayMatchingUsers: (newTodayMatchingUsers) =>
+    set({ todayMatchingUsers: newTodayMatchingUsers }),
+  deleteTodayMatchingUsers: (userIdToDelete) => {
+    set((state) => ({
+      todayMatchingUsers: state.todayMatchingUsers.filter(
+        (user) => user.id !== userIdToDelete
+      ),
+    }));
+  },
+}));
+
+//매칭 성공 대상자 정보 저장
 type MatchingSuccessInfoType = z.infer<typeof UserLikeResponseSchema>;
 
 type MatchingSuccessInfo = {
