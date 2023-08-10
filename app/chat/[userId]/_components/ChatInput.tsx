@@ -25,6 +25,14 @@ export default function ChatInput() {
 
       if (result.code === 1000) {
         setUserMessage("");
+
+        // textarea 높이 초기화
+        const textarea = document.getElementById("textarea");
+        if (textarea) {
+          textarea.style.height = "auto";
+          textarea.style.height = "initial";
+        }
+
         refetch();
 
         return;
@@ -35,15 +43,16 @@ export default function ChatInput() {
   };
 
   const handleChangeMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const textareat = e.target;
-    textareat.style.height = "auto";
-    textareat.style.height = textareat.scrollHeight + "px";
+    const textarea = e.target;
+    textarea.style.height = "auto";
+    textarea.style.height = textarea.scrollHeight + "px";
     setUserMessage(e.target.value);
   };
 
   return (
     <div className="bg-white w-full h-auto flex flex-shrink-0 items-center justify-between px-5 pt-3 pb-4">
       <textarea
+        id="textarea"
         className="placeholder-gray5 resize-none border-none p-0 w-[90%] max-h-[100px] focus:outline-none focus:ring-0 "
         rows={1}
         placeholder="메세지 보내기"
