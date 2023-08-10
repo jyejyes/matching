@@ -18,8 +18,7 @@ export default function Buttons() {
 
   const { mutateAsync: selectedLike } = useMatchingLike();
 
-  const handleClickButton = async (userChoice: string) => {
-    console.log(userChoice);
+  const handleClickButton = async (userChoice: "like" | "unlike") => {
     updateUserChoice(userChoice);
 
     const res = await selectedLike({
