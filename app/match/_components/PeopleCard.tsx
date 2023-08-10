@@ -115,23 +115,32 @@ export const PeopleCard = ({
               {convertToPosition(user?.position ?? "정해지지 않음")}
             </Tag>
 
-            <Image
-              src={"/images/match/ic-warning.svg"}
-              alt={"warning"}
-              width={28}
-              height={28}
-              className={"cursor-pointer"}
+            <button
+              className="flex items-start gap-1"
               onClick={handleClickDetail}
-            />
+            >
+              <Image
+                src={"/images/match/ic-warning.svg"}
+                alt={"warning"}
+                width={28}
+                height={28}
+                className={"cursor-pointer"}
+                onClick={handleClickDetail}
+              />
+
+              <p className="text-[14px] pt-[1px] font-medium text-white [text-shadow:_0_4px_4px_rgb(0_0_0_/_20%)]">
+                더보기
+              </p>
+            </button>
           </div>
 
-          <h2 className="text-[30px] font-extrabold text-white">
+          <h2 className="text-[30px] font-extrabold text-white [text-shadow:_0_4px_4px_rgb(0_0_0_/_20%)]">
             {user?.username ?? "정해지지 않음"}
           </h2>
         </div>
 
         <div>
-          <p className="text-[14px] font-extrabold mb-3 text-white">
+          <p className="text-[14px] font-extrabold mb-3 text-white [text-shadow:_0_1px_0_rgb(0_0_0_/_20%)]">
             보유 기술
           </p>
 
