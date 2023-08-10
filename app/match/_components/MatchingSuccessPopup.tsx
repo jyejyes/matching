@@ -3,9 +3,13 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import routerPaths from "#/utils/routerPaths";
 import useModalControl from "#/app/modalControl.state";
+import { useMatchingSuccessInfo } from "#/app/match/matching.state";
 
 export const MatchingSuccessPopup = () => {
   //매칭 대상자 정보 불러오고(zustand로)
+  const { matchingSuccessInfo } = useMatchingSuccessInfo();
+
+  console.log(matchingSuccessInfo);
 
   const { push } = useRouter();
 
@@ -16,7 +20,10 @@ export const MatchingSuccessPopup = () => {
   };
 
   const moveChatting = () => {
-    push(routerPaths.chattingRoom(1));
+    if (matchingSuccessInfo?.messageRoomId)
+      push(routerPaths.chattingRoom(matchingSuccessInfo.messageRoomId));
+
+    updateIsMatchingSuccessModalOpen(false);
   };
 
   return (
@@ -34,15 +41,23 @@ export const MatchingSuccessPopup = () => {
       </h2>
 
       <p className="text-center text-[17px] font-bold text-gray7 mb-9">
-        [UserName]님이
+        {matchingSuccessInfo.matchInfo?.toMember.username} 님이
         <br />
         같이 이야기 나누고 싶어해요.
       </p>
 
       <div className="flex gap-[22px] mb-9">
-        <div>sdf</div>
+        <img
+          src={matchingSuccessInfo.matchInfo?.fromMember.imgUrl}
+          alt={"profile"}
+          className="w-[100px] h-[100px] rounded-full border-4 border-white"
+        />
 
-        <div>sdf</div>
+        <img
+          src={matchingSuccessInfo.matchInfo?.toMember.imgUrl}
+          alt={"profile"}
+          className="w-[100px] h-[100px] rounded-full border-4 border-white"
+        />
       </div>
 
       <div className="flex flex-col gap-4">

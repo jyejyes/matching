@@ -3,7 +3,6 @@
 import { PeopleCard } from "#/app/match/_components/PeopleCard";
 import { useRouter } from "next/navigation";
 import MatchTitle from "#/app/match/_components/MatchTitle";
-import { useGetFeed } from "#/hooks/apis/useGetFeed";
 
 import { BottomNavigator } from "#/app/_components/BottomNavigator";
 import { MatchingSuccessPopup } from "#/app/match/_components/MatchingSuccessPopup";
@@ -13,15 +12,16 @@ import { LikeButton } from "#/app/match/_components/LikeButton";
 import Image from "next/image";
 import useModalControl from "#/app/modalControl.state";
 import { Loading } from "#/app/_components/Loading";
+import { useTodayMatchingUsers } from "#/app/match/matching.state";
 
 export default function Page() {
   const { push } = useRouter();
 
-  const { data: todayUsers, isLoading } = useGetAllFeed();
+  const { isLoading } = useGetAllFeed();
+
+  const { todayMatchingUsers } = useTodayMatchingUsers();
 
   const { isMatchingSuccessModalOpen } = useModalControl();
-
-  const handleClickCard = () => {};
 
   if (isLoading) return <Loading />;
 
@@ -29,7 +29,7 @@ export default function Page() {
     <div className="w-full h-full p-4 relative">
       {isMatchingSuccessModalOpen && <MatchingSuccessPopup />}
 
-      <MatchTitle numberOfPeople={todayUsers.length} />
+      <MatchTitle numberOfPeople={todayMatchingUsers.length} />
 
       <div className="relative w-full h-[calc(100%-250px)] flex-center-col">
         <Image
@@ -42,9 +42,9 @@ export default function Page() {
         <p className="mt-5 font-bold text-pointBlue2">
           오늘 자정이 지나면 다시 추천드릴게요!
         </p>
-        {todayUsers.slice(0, 3).map((item, i) => {
-          const lastIndex = todayUsers.slice(0, 3).length - 1;
-          const rotateDegree = (lastIndex - i) * 3; // 반대로 회전
+        {todayMatchingUsers.map((item, i) => {
+          const lastIndex = todayMatchingUsers.length - 1;
+          const rotateDegree = (lastIndex - i) * 1.5; // 반대로 회전
 
           return (
             <div key={i} className="w-full h-full absolute flex-center">

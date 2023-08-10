@@ -1,14 +1,21 @@
 "use client";
 
 import clsx from "clsx";
-import { motion, PanInfo } from "framer-motion";
-import { useState } from "react";
+import {
+  animate,
+  motion,
+  PanInfo,
+  useMotionValue,
+  useTransform,
+} from "framer-motion";
 import { Tag } from "#/ui/components/Tag";
 import Image from "next/image";
 import { convertToPosition } from "#/utils/convertToPosition";
-import Link from "next/link";
 import { useMatchingLike } from "#/hooks/apis/useMatchingLike";
 import { MatchingCoworkerInfo } from "#/hooks/apis/useGetFeed";
+import { useRouter } from "next/navigation";
+import routerPaths from "#/utils/routerPaths";
+import { useFeedUser, useTodayMatchingUsers } from "#/app/match/matching.state";
 
 type Props = {
   user: MatchingCoworkerInfo;
@@ -24,78 +31,82 @@ export const PeopleCard = ({
   className,
   displayedCardIndex,
 }: Props) => {
-  const [selectOption, setSelectOption] = useState<"like" | "dislike" | "none">(
-    "none"
-  );
+  const { push } = useRouter();
 
   const { mutateAsync: selectedLike } = useMatchingLike();
+
+  const { updateUserInfo } = useFeedUser();
+
+  const { todayMatchingUsers, deleteTodayMatchingUsers } =
+    useTodayMatchingUsers();
+
+  const cardX = useMotionValue(0);
+  const rotate = useTransform(cardX, [-300, 0, 300], [-20, 0, 20]);
 
   const handleDragEnd = async (
     e: MouseEvent | PointerEvent | TouchEvent,
     info: PanInfo
   ) => {
-    const {
-      offset: { x: moveDirection },
-    } = info;
+    const { offset } = info;
 
-    if (moveDirection > 100) {
-      setSelectOption("like");
+    if (Math.abs(offset.x) > 100) {
+      const swipeDirection = info.offset.x > 0 ? "right" : "left";
 
-      //좋아요 호출
-      const res = await selectedLike({
-        toMemberId: user.id,
-        like: true,
-      });
-
-      if (res.code === 1000) {
+      //함수
+      if (swipeDirection === "right") {
+        await handleLike(user.id, true);
+      } else if (swipeDirection === "left") {
+        await handleLike(user.id, false);
       }
-    } else if (moveDirection < -100) {
-      setSelectOption("dislike");
-
-      //다음에 호출
-      const res = await selectedLike({
-        toMemberId: user.id,
-        like: false,
-      });
     }
+  };
+
+  const handleLike = async (userId: number, like: boolean) => {
+    animate(cardX, like ? 500 : -500, {
+      type: "spring",
+      stiffness: 100,
+    });
+
+    const res = await selectedLike({
+      toMemberId: userId,
+      like,
+    });
+
+    if (res.code === 1201) {
+      console.log(like ? "좋아요 성공!" : "다음 기회에 성공!");
+      deleteTodayMatchingUsers(userId);
+    }
+  };
+
+  const handleClickDetail = () => {
+    updateUserInfo(user);
+
+    push(routerPaths.people(user.id));
   };
 
   return (
     <motion.div
       animate={{
-        x:
-          selectOption === "like"
-            ? "110%"
-            : selectOption === "dislike"
-            ? "-110%"
-            : 0,
         rotateZ: rotateDegree,
+      }}
+      style={{
+        x: cardX,
+        rotate,
       }}
       drag={"x"}
       whileDrag={{ scale: 0.97 }}
+      dragSnapToOrigin
       onDragEnd={handleDragEnd}
-      dragSnapToOrigin={selectOption === "none"}
       className={clsx(
-        "relative overflow-hidden z-10 bg-white cursor-pointer w-[95%] min-h-[300px] max-h-[430px] h-full shadow-md rounded-[12px] p-5 flex flex-col",
-
+        "relative border-[1px] border-gray4 shadow-lg overflow-hidden z-10 bg-white cursor-pointer w-[95%] min-h-[300px] max-h-[430px] h-full rounded-[12px] p-5 flex flex-col",
         className
       )}
     >
-      {displayedCardIndex === 2 && (
-        <img
-          src={user?.imgUrl ?? ""}
-          alt={user?.username ?? "정해지지 않음"}
-          className="absolute left-0 top-0 w-full h-full"
-        />
-      )}
-
-      {displayedCardIndex === 1 && (
-        <div className="absolute left-0 top-0 w-full h-full bg-gray3 z-30" />
-      )}
-
-      {displayedCardIndex === 0 && (
-        <div className="absolute left-0 top-0 w-full h-full bg-gray2 z-30" />
-      )}
+      <img
+        src={user?.imgUrl ?? ""}
+        alt={user?.username ?? "정해지지 않음"}
+        className="absolute left-0 top-0 w-full h-full"
+      />
 
       <div className="z-10 w-full h-full flex flex-col justify-between">
         <div className="flex flex-col gap-[10px]">
@@ -104,19 +115,14 @@ export const PeopleCard = ({
               {convertToPosition(user?.position ?? "정해지지 않음")}
             </Tag>
 
-            <Link
-              href={{
-                pathname: `/people/${user?.id}`,
-              }}
-            >
-              <Image
-                src={"/images/match/ic-warning.svg"}
-                alt={"warning"}
-                width={28}
-                height={28}
-                className={"cursor-pointer"}
-              />
-            </Link>
+            <Image
+              src={"/images/match/ic-warning.svg"}
+              alt={"warning"}
+              width={28}
+              height={28}
+              className={"cursor-pointer"}
+              onClick={handleClickDetail}
+            />
           </div>
 
           <h2 className="text-[30px] font-extrabold text-white">
