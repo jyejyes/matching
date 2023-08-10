@@ -19,7 +19,7 @@ export const MatchingToast = ({ isLike, className }: Props) => {
           },
         }}
         className={clsx(
-          "bg-white bg-opacity-80 p-[24px] flex items-center gap-[10px] rounded-[12px]",
+          "bg-white bg-opacity-80 p-4 flex items-center gap-[10px] rounded-[12px]",
           className
         )}
       >
