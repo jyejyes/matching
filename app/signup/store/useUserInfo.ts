@@ -17,6 +17,8 @@ export type UserInfoActions = {
 
   deleteSkill: (skillToDelete: string) => void;
   deleteInterest: (interestToDelete: string) => void;
+
+  deleteAll: () => void;
 };
 
 type UserInfoStore = UserInfoState & UserInfoActions;
@@ -44,6 +46,14 @@ const useUserInfo = create<UserInfoStore>((set) => ({
       interest: state.interest.filter(
         (interest) => interest !== interestToDelete
       ),
+    })),
+  deleteAll: () =>
+    set((state) => ({
+      position: "",
+      skills: [],
+      imgUrl: "",
+      intro: "",
+      interest: [],
     })),
 }));
 
