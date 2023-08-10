@@ -17,7 +17,6 @@ export const useFeedUser = create<MatchingState>((set) => ({
 }));
 
 //오늘의 매칭 대상자 전체 저장
-
 type TodayMatchingUsersType = {
   todayMatchingUsers: MatchingCoworkerInfo[];
   updateTodayMatchingUsers: (
@@ -52,4 +51,16 @@ export const useMatchingSuccessInfo = create<MatchingSuccessInfo>((set) => ({
   matchingSuccessInfo: {} as MatchingSuccessInfoType,
   updateMatchingSuccessInfo: (newInfo: MatchingSuccessInfoType) =>
     set({ matchingSuccessInfo: newInfo }),
+}));
+
+//현재 유저의 선택 정보 저장
+type UserChoiceInfoType = {
+  userChoice: "like" | "dislike" | "none";
+  updateUserChoice: (newUserChoice: "like" | "dislike" | "none") => void;
+};
+
+export const useUserChoiceInfo = create<UserChoiceInfoType>((set) => ({
+  userChoice: "none",
+  updateUserChoice: (newUserChoice: "like" | "dislike" | "none") =>
+    set({ userChoice: newUserChoice }),
 }));

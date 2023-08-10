@@ -15,7 +15,12 @@ import { useMatchingLike } from "#/hooks/apis/useMatchingLike";
 import { MatchingCoworkerInfo } from "#/hooks/apis/useGetFeed";
 import { useRouter } from "next/navigation";
 import routerPaths from "#/utils/routerPaths";
-import { useFeedUser, useTodayMatchingUsers } from "#/app/match/matching.state";
+import {
+  useFeedUser,
+  useTodayMatchingUsers,
+  useUserChoiceInfo,
+} from "#/app/match/matching.state";
+import useModalControl from "#/app/modalControl.state";
 
 type Props = {
   user: MatchingCoworkerInfo;
@@ -37,8 +42,11 @@ export const PeopleCard = ({
 
   const { updateUserInfo } = useFeedUser();
 
-  const { todayMatchingUsers, deleteTodayMatchingUsers } =
-    useTodayMatchingUsers();
+  const { deleteTodayMatchingUsers } = useTodayMatchingUsers();
+
+  const { isMatchingModalOpen, updateIsMatchingModalOpen } = useModalControl();
+
+  const { updateUserChoice } = useUserChoiceInfo();
 
   const cardX = useMotionValue(0);
   const rotate = useTransform(cardX, [-300, 0, 300], [-20, 0, 20]);
@@ -54,8 +62,12 @@ export const PeopleCard = ({
 
       //함수
       if (swipeDirection === "right") {
+        updateUserChoice("like");
+
         await handleLike(user.id, true);
       } else if (swipeDirection === "left") {
+        updateUserChoice("dislike");
+
         await handleLike(user.id, false);
       }
     }
@@ -65,6 +77,7 @@ export const PeopleCard = ({
     animate(cardX, like ? 500 : -500, {
       type: "spring",
       stiffness: 100,
+      duration: 3, // 애니메이션 지속 시간을 0.5초로 설정
     });
 
     const res = await selectedLike({
@@ -73,8 +86,12 @@ export const PeopleCard = ({
     });
 
     if (res.code === 1201) {
-      console.log(like ? "좋아요 성공!" : "다음 기회에 성공!");
-      deleteTodayMatchingUsers(userId);
+      updateIsMatchingModalOpen(true);
+
+      setTimeout(() => {
+        deleteTodayMatchingUsers(userId); //유저 삭제
+        updateIsMatchingModalOpen(false); //모달 닫기
+      }, 1000);
     }
   };
 
@@ -99,6 +116,7 @@ export const PeopleCard = ({
       onDragEnd={handleDragEnd}
       className={clsx(
         "relative border-[1px] border-gray4 shadow-lg overflow-hidden z-10 bg-white cursor-pointer w-[95%] min-h-[300px] max-h-[430px] h-full rounded-[12px] p-5 flex flex-col",
+        isMatchingModalOpen ? "pointer-events-none" : "",
         className
       )}
     >

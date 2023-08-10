@@ -12,7 +12,11 @@ import { LikeButton } from "#/app/match/_components/LikeButton";
 import Image from "next/image";
 import useModalControl from "#/app/modalControl.state";
 import { Loading } from "#/app/_components/Loading";
-import { useTodayMatchingUsers } from "#/app/match/matching.state";
+import {
+  useTodayMatchingUsers,
+  useUserChoiceInfo,
+} from "#/app/match/matching.state";
+import { MatchingToast } from "#/ui/components/Toast/MatchingToast";
 
 export default function Page() {
   const { push } = useRouter();
@@ -21,13 +25,27 @@ export default function Page() {
 
   const { todayMatchingUsers } = useTodayMatchingUsers();
 
-  const { isMatchingSuccessModalOpen } = useModalControl();
+  const { isMatchingModalOpen, isMatchingSuccessModalOpen } = useModalControl();
+
+  const { userChoice } = useUserChoiceInfo();
 
   if (isLoading) return <Loading />;
 
   return (
     <div className="w-full h-full p-4 relative">
+      {/*z-index: 50*/}
       {isMatchingSuccessModalOpen && <MatchingSuccessPopup />}
+
+      {/*  TODO : toast 라이브러리 찾아서 하기 <지금은 시간이 없어>*/}
+      {/*z-index: 30*/}
+      {isMatchingModalOpen && (
+        <MatchingToast
+          isLike={userChoice === "like"}
+          className={
+            "z-30 absolute top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%]"
+          }
+        />
+      )}
 
       <MatchTitle numberOfPeople={todayMatchingUsers.length} />
 

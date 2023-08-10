@@ -1,6 +1,8 @@
 import axios from "axios";
 import { AxiosError } from "axios";
 import LocalStorage from "#/utils/LocalStorage";
+import routerPaths from "#/utils/routerPaths";
+import { useRouter } from "next/navigation";
 
 export const BASE_URL = "https://project-308.kro.kr";
 
@@ -27,3 +29,13 @@ apiClient.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+apiClient.interceptors.response.use((response) => {
+  if (response.data.code >= 4100 || response.data.code <= 4104) {
+    //토스트
+    // alert(response.data.message);
+    // push(routerPaths.signup());
+  }
+
+  return response;
+});

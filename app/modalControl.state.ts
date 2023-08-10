@@ -4,7 +4,8 @@ type ModalControlState = {
   isLogoutModalOpen: boolean;
   isDeleteModalOpen: boolean;
   isDeleteChatModalOpen: boolean;
-  isMatchingSuccessModalOpen: boolean;
+  isMatchingSuccessModalOpen: boolean; //매칭 성공 모달
+  isMatchingModalOpen: boolean; //매칭 선택 모달
 
   updateIsLogoutModalOpen: (newIsLogoutModalOpen: boolean) => void;
   updateIsDeleteModalOpen: (newIsDeleteModalOpen: boolean) => void;
@@ -12,12 +13,14 @@ type ModalControlState = {
   updateIsMatchingSuccessModalOpen: (
     newIsMatchingSuccessModalOpen: boolean
   ) => void;
+  updateIsMatchingModalOpen: (newIsMatchingModalOpen: boolean) => void;
 };
 const useModalControl = create<ModalControlState>((set) => ({
   isLogoutModalOpen: false,
   isDeleteModalOpen: false,
   isDeleteChatModalOpen: false,
   isMatchingSuccessModalOpen: false,
+  isMatchingModalOpen: false,
 
   updateIsLogoutModalOpen: (newIsLogoutModalOpen: boolean) =>
     set({ isLogoutModalOpen: newIsLogoutModalOpen }),
@@ -27,6 +30,8 @@ const useModalControl = create<ModalControlState>((set) => ({
     set({ isDeleteChatModalOpen: newIsDeleteChatModalOpen }),
   updateIsMatchingSuccessModalOpen: (newIsMatchingSuccessModalOpen: boolean) =>
     set({ isMatchingSuccessModalOpen: newIsMatchingSuccessModalOpen }),
+  updateIsMatchingModalOpen: (newIsMatchingModalOpen: boolean) =>
+    set({ isMatchingModalOpen: newIsMatchingModalOpen }),
 }));
 
 export default useModalControl;
