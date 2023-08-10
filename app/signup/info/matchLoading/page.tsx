@@ -40,7 +40,7 @@ export default function Page() {
       </div>
 
       <p className="text-[14px] text-gray6 mt-[10px]">
-        팀빌딩은 하루에 3명까지 보여드려요.
+        팀빌딩은 하루에 5명까지 보여드려요.
         <br />
         매칭 결과는 좋아요를 누르는 즉시
         <br />
