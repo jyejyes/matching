@@ -26,7 +26,7 @@ export default function Page() {
   };
 
   return (
-    <div className="relative h-full">
+    <div className="relative h-full flex flex-col">
       <Image
         src={"/images/signup/ic-backward.svg"}
         alt={"뒤로가기"}
@@ -44,13 +44,13 @@ export default function Page() {
         className="mb-5"
       />
 
-      <div className="flex flex-col gap-7">
+      <div className="flex flex-col gap-7 flex-grow overflow-y-auto">
         <KakaoProfile />
 
         <SelectAvatar />
       </div>
 
-      <div className="absolute bottom-0 w-full">
+      <div className="w-full">
         <DefaultButton disabled={false} onClick={handleClickNextButton}>
           다음
         </DefaultButton>
