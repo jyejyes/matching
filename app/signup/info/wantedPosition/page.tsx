@@ -10,12 +10,14 @@ import { DefaultButton } from "#/ui/components/DefaultButton";
 import useUserInfo, { UserInfoState } from "#/app/signup/store/useUserInfo";
 import { apiClient } from "#/hooks/apiSetting";
 import SessionStorage from "#/utils/SessionStorage";
-import { useLogin } from "#/hooks/apis/useLogin";
+import { LoginReqType, useLogin } from "#/hooks/apis/useLogin";
 
 export default function Page() {
   const { push } = useRouter();
 
-  const userInfo = JSON.parse(SessionStorage.getItem("user") ?? "{}");
+  const userInfo = JSON.parse(
+    SessionStorage.getItem("user") ?? "{}"
+  ) as LoginReqType["user"];
 
   const { id: userProviderId, name: username } = JSON.parse(
     SessionStorage.getItem("user") ?? "{}"
@@ -67,8 +69,16 @@ export default function Page() {
       });
 
       if (data.code === 1102) {
+        const user = userInfo;
         //로그인 호출하고
-        const res = await serviceLogin(userInfo);
+        const res = await serviceLogin({
+          user: {
+            id: user.id,
+            name: user.name,
+            email: user.email,
+            image: user.image,
+          },
+        });
 
         if (res.code === 1101) {
           push(routerPaths.matchLoading());

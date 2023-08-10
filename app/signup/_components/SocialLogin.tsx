@@ -15,7 +15,14 @@ export const SocialLogin = () => {
       SessionStorage.setItem("user", JSON.stringify(session.user));
 
       //요청 보내기 (expires가 남은 경우 안하고 싶은데)
-      serviceLogin(session);
+      serviceLogin({
+        user: {
+          id: session.user.id,
+          name: session.user.name as string,
+          email: session.user.email as string,
+          image: session.user.image as string,
+        },
+      });
     }
   }, [session]);
 

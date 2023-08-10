@@ -1,8 +1,8 @@
 import { apiClient } from "#/hooks/apiSetting";
 import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
-import { tokenSchema } from "#/types/schema/schema";
-import { Session } from "next-auth";
+import { tokenSchema, userSchema } from "#/types/schema/schema";
+
 import SessionStorage from "#/utils/SessionStorage";
 import { setCookie } from "#/utils/Cookie/Cookie";
 import routerPaths from "#/utils/routerPaths";
@@ -18,7 +18,21 @@ const LoginResponseSchema = z.object({
     .nullish(),
 });
 
-const login = async (session: Session) => {
+//요청
+const reqSchema = z.object({
+  user: z.object({
+    id: z.string(),
+    name: z.string(),
+    email: z.string(),
+    image: z.string(),
+  }),
+  expires: z.string().optional(),
+  accessToken: z.string().optional(),
+});
+
+export type LoginReqType = z.infer<typeof reqSchema>;
+
+const login = async (session: LoginReqType) => {
   const response = await apiClient.post("/login-jwt", session);
 
   return LoginResponseSchema.parse(response.data);
