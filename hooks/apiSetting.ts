@@ -1,7 +1,6 @@
 import axios from "axios";
 import { AxiosError } from "axios";
-import { getCookie } from "#/utils/Cookie/Cookie";
-import SessionStorage from "#/utils/SessionStorage";
+import LocalStorage from "#/utils/LocalStorage";
 
 export const BASE_URL = "https://project-308.kro.kr";
 
@@ -18,7 +17,7 @@ apiClient.interceptors.request.use(
   (config: any) => {
     config.withCredentials = true;
 
-    const token = SessionStorage.getItem("token");
+    const token = LocalStorage.getItem("token");
 
     config.headers["Authorization"] = `Bearer ${token}`;
 

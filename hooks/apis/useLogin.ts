@@ -3,10 +3,10 @@ import { useMutation } from "@tanstack/react-query";
 import { z } from "zod";
 import { tokenSchema, userSchema } from "#/types/schema/schema";
 
-import SessionStorage from "#/utils/SessionStorage";
 import { setCookie } from "#/utils/Cookie/Cookie";
 import routerPaths from "#/utils/routerPaths";
 import { useRouter } from "next/navigation";
+import LocalStorage from "#/utils/LocalStorage";
 
 // TODO: success util하나 만들어서 감싸서 나중에 사용할것
 const LoginResponseSchema = z.object({
@@ -44,7 +44,7 @@ export const useLogin = () => {
     onSuccess(res) {
       //가입 정보가 있는 경우(회원인 경우)
       if (res.code === 1101 && res.data) {
-        SessionStorage.setItem("token", res.data.token);
+        LocalStorage.setItem("token", res.data.token);
 
         setCookie("token", res.data.token);
 

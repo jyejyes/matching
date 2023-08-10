@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import SessionStorage from "#/utils/SessionStorage";
 
 export type UserInfoState = {
   position: "BACK_END" | "FRONT_END" | "PM_PO" | "DESIGNER" | "";

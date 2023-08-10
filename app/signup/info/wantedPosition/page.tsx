@@ -9,18 +9,18 @@ import { SelectedButton } from "#/ui/components/SelectedButton";
 import { DefaultButton } from "#/ui/components/DefaultButton";
 import useUserInfo, { UserInfoState } from "#/app/signup/store/useUserInfo";
 import { apiClient } from "#/hooks/apiSetting";
-import SessionStorage from "#/utils/SessionStorage";
 import { LoginReqType, useLogin } from "#/hooks/apis/useLogin";
+import LocalStorage from "#/utils/LocalStorage";
 
 export default function Page() {
   const { push } = useRouter();
 
   const userInfo = JSON.parse(
-    SessionStorage.getItem("user") ?? "{}"
+    LocalStorage.getItem("user") ?? "{}"
   ) as LoginReqType["user"];
 
   const { id: userProviderId, name: username } = JSON.parse(
-    SessionStorage.getItem("user") ?? "{}"
+    LocalStorage.getItem("user") ?? "{}"
   );
 
   const {

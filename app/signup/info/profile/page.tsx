@@ -8,7 +8,7 @@ import { SelectedTitle } from "#/app/signup/_components/SelectedTitle";
 import { DefaultButton } from "#/ui/components/DefaultButton";
 import KakaoProfile from "#/app/signup/info/profile/_components/KakaoProfile";
 import SelectAvatar from "#/app/signup/info/profile/_components/SelectAvatar";
-import SessionStorage from "#/utils/SessionStorage";
+import LocalStorage from "#/utils/LocalStorage";
 
 export default function Page() {
   const { push } = useRouter();
@@ -22,7 +22,7 @@ export default function Page() {
   const handleClickNextButton = () => {
     push(routerPaths.selectedWantedPosition());
 
-    SessionStorage.setItem("userSelectedImgUrl", JSON.stringify(imgUrl));
+    LocalStorage.setItem("userSelectedImgUrl", JSON.stringify(imgUrl));
   };
 
   return (

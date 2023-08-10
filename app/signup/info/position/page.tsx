@@ -7,7 +7,7 @@ import useUserInfo, { UserInfoState } from "#/app/signup/store/useUserInfo";
 import { useRouter } from "next/navigation";
 import routerPaths from "#/utils/routerPaths";
 import { POSITIONS } from "#/constant/signup.constant";
-import SessionStorage from "#/utils/SessionStorage";
+import LocalStorage from "#/utils/LocalStorage";
 
 export default function Page() {
   const { push } = useRouter();
@@ -21,7 +21,7 @@ export default function Page() {
   const handleClickNextButton = () => {
     push(routerPaths.selectedSkills());
 
-    SessionStorage.setItem("userSelectedPosition", userSelectedPosition);
+    LocalStorage.setItem("userSelectedPosition", userSelectedPosition);
   };
 
   return (

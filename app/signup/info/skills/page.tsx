@@ -9,8 +9,8 @@ import { DefaultButton } from "#/ui/components/DefaultButton";
 import Image from "next/image";
 import routerPaths from "#/utils/routerPaths";
 import { useGetSkills } from "#/hooks/apis/useGetSkills";
-import SessionStorage from "#/utils/SessionStorage";
 import { Loading } from "#/app/_components/Loading";
+import LocalStorage from "#/utils/LocalStorage";
 
 async function getSkills() {}
 export default function Page() {
@@ -34,7 +34,7 @@ export default function Page() {
   const handleClickNextButton = () => {
     push(routerPaths.selectedIntro());
 
-    SessionStorage.setItem(
+    LocalStorage.setItem(
       "userSelectedSkills",
       JSON.stringify(userSelectedSkills)
     );

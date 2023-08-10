@@ -4,13 +4,13 @@ import Image from "next/image";
 import clsx from "clsx";
 import SelectedImage from "#/ui/components/SelectedImage";
 import useUserInfo from "#/app/signup/store/useUserInfo";
-import SessionStorage from "#/utils/SessionStorage";
+import LocalStorage from "#/utils/LocalStorage";
 
 export default function KakaoProfile() {
   // TODO: 타입 지정하기
   // 유틸함수 만들기 : type 지정하는거- 자동으로 스토리지 저장되게
 
-  const userKaKaoImageUrl = JSON.parse(SessionStorage.getItem("user") ?? "{}");
+  const userKaKaoImageUrl = JSON.parse(LocalStorage.getItem("user") ?? "{}");
 
   const { imgUrl, updateImgUrl } = useUserInfo();
 

@@ -7,8 +7,6 @@ import useModalControl from "#/app/modalControl.state";
 import { DeleteChattingRoomModal } from "#/app/chat/[userId]/_components/DeleteChattingRoomModal";
 import { useGetMessageRoom } from "#/hooks/apis/useGetMessageRoom";
 import { usePathname } from "next/navigation";
-import SessionStorage from "#/utils/SessionStorage";
-import { useSendMessage } from "#/hooks/apis/useSendMessage";
 
 export default function Page() {
   const roomId = Number(usePathname().split("/")[2]);
@@ -32,9 +30,9 @@ export default function Page() {
 
         <div className="flex flex-col gap-1 w-full">
           {isLoading ? (
-            <div>loading...</div>
+            <div></div>
           ) : (
-            messageRoomInfo.messages.map((msg, i) => (
+            messageRoomInfo?.messages?.map((msg, i) => (
               <SpeechBubble
                 key={msg.id}
                 isMe={msg.messageWriterId === messageRoomInfo.loginMemberId}

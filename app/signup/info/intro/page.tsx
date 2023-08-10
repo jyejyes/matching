@@ -6,7 +6,7 @@ import Image from "next/image";
 import routerPaths from "#/utils/routerPaths";
 import { useRouter } from "next/navigation";
 import useUserInfo from "#/app/signup/store/useUserInfo";
-import SessionStorage from "#/utils/SessionStorage";
+import LocalStorage from "#/utils/LocalStorage";
 
 export default function Page() {
   const { push } = useRouter();
@@ -19,7 +19,7 @@ export default function Page() {
   const handleClickNextButton = () => {
     push(routerPaths.selectedProfile());
 
-    SessionStorage.setItem("userSelectedIntro", JSON.stringify(intro));
+    LocalStorage.setItem("userSelectedIntro", JSON.stringify(intro));
   };
   const handleChangeIntro = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     updateIntro(e.target.value);

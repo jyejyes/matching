@@ -2,7 +2,7 @@
 import { signIn, useSession } from "next-auth/react";
 import { useEffect } from "react";
 import { useLogin } from "#/hooks/apis/useLogin";
-import SessionStorage from "#/utils/SessionStorage";
+import LocalStorage from "#/utils/LocalStorage";
 
 export const SocialLogin = () => {
   const { data: session, status } = useSession();
@@ -11,8 +11,8 @@ export const SocialLogin = () => {
 
   useEffect(() => {
     if (session) {
-      //세션 스토리지에 저장
-      SessionStorage.setItem("user", JSON.stringify(session.user));
+      //로컬 스토리지에 저장
+      LocalStorage.setItem("user", JSON.stringify(session.user));
 
       //요청 보내기 (expires가 남은 경우 안하고 싶은데)
       serviceLogin({
