@@ -55,12 +55,12 @@ export const useMatchingSuccessInfo = create<MatchingSuccessInfo>((set) => ({
 
 //현재 유저의 선택 정보 저장
 type UserChoiceInfoType = {
-  userChoice: "like" | "dislike" | "none";
-  updateUserChoice: (newUserChoice: "like" | "dislike" | "none") => void;
+  userChoice: "like" | "unlike" | "none";
+  updateUserChoice: (newUserChoice: "like" | "unlike" | "none") => void;
 };
 
 export const useUserChoiceInfo = create<UserChoiceInfoType>((set) => ({
   userChoice: "none",
-  updateUserChoice: (newUserChoice: "like" | "dislike" | "none") =>
+  updateUserChoice: (newUserChoice: "like" | "unlike" | "none") =>
     set({ userChoice: newUserChoice }),
 }));

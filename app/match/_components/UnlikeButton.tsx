@@ -13,6 +13,7 @@ export const UnlikeButton = ({ status, ...props }: Props) => {
         "w-[60px] h-[60px] rounded-full  flex-center active:scale-90",
         status === "people" ? "bg-white shadow-lg" : "bg-gray1"
       )}
+      name={props.name}
       onClick={props.onClick}
     >
       <Image

@@ -66,7 +66,7 @@ export const PeopleCard = ({
 
         await handleLike(user.id, true);
       } else if (swipeDirection === "left") {
-        updateUserChoice("dislike");
+        updateUserChoice("unlike");
 
         await handleLike(user.id, false);
       }
