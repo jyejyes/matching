@@ -11,7 +11,10 @@ export const ChattingRoomPreview = ({ isNew, chatInfo, onClick }: Props) => {
   const { toMember, lastMessage, createdTime } = chatInfo;
 
   return (
-    <div className="w-full flex gap-3 py-2 cursor-pointer" onClick={onClick}>
+    <div
+      className="w-full flex gap-3 py-[13px] cursor-pointer px-4 hover:bg-gray1"
+      onClick={onClick}
+    >
       <img src={toMember.imgUrl} className="rounded-full w-[50px] h-[50px]" />
 
       <div className="flex flex-col flex-1">

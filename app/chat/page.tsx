@@ -14,15 +14,19 @@ export default function Page() {
   const { data: messageRes, isLoading } = useGetMessages();
 
   return (
-    <div className="w-full h-full p-4 relative">
-      <h1 className="text-[24px] font-bold mt-[10px] mb-[14px]">채팅</h1>
+    <div className="w-full h-full relative flex flex-col overflow-hidden">
+      <h1 className="w-full flex text-[24px] font-bold mt-[10px] mb-[14px] p-4 pb-0">
+        채팅
+      </h1>
 
       {isLoading ? (
         <Loading />
       ) : messageRes?.messageRooms?.length === 0 ? (
-        <div>생성된 방이 없습니다.</div>
+        <div className="flex flex-col flex-grow overflow-y-auto p-4">
+          생성된 방이 없습니다.
+        </div>
       ) : (
-        <div className="flex flex-col gap-[10px]">
+        <div className="flex flex-col flex-grow overflow-y-auto">
           {messageRes.messageRooms.map((msg, i) => (
             <ChattingRoomPreview
               key={i}
@@ -34,7 +38,7 @@ export default function Page() {
         </div>
       )}
 
-      <div className="absolute w-full bottom-0 left-0">
+      <div className="w-full flex flex-shrink-0">
         <BottomNavigator />
       </div>
     </div>
