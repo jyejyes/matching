@@ -34,7 +34,7 @@ export const MatchingToast = ({ isLike, className }: Props) => {
           height={28}
         />
 
-        <p className="text-subtitle font-extrabold">
+        <p className="text-[18px] font-extrabold mobile:text-subtitle">
           {isLike ? "좋아요" : "다음 기회에"}
         </p>
       </motion.div>
