@@ -3,24 +3,32 @@ import { GetMessageResponseType } from "#/hooks/apis/useGetMessages";
 
 type Props = {
   isNew: boolean;
+  loginMemberId: number;
   chatInfo: GetMessageResponseType;
   onClick: () => void;
 };
 
-export const ChattingRoomPreview = ({ isNew, chatInfo, onClick }: Props) => {
-  const { toMember, lastMessage, createdTime } = chatInfo;
+export const ChattingRoomPreview = ({
+  isNew,
+  loginMemberId,
+  chatInfo,
+  onClick,
+}: Props) => {
+  const { fromMember, toMember, lastMessage, createdTime } = chatInfo;
+
+  const viewMember = loginMemberId === fromMember.id ? toMember : fromMember;
 
   return (
     <div
       className="w-full flex gap-3 py-[13px] cursor-pointer px-4 hover:bg-gray1"
       onClick={onClick}
     >
-      <img src={toMember.imgUrl} className="rounded-full w-[50px] h-[50px]" />
+      <img src={viewMember.imgUrl} className="rounded-full w-[50px] h-[50px]" />
 
       <div className="flex flex-col flex-1">
         <div className="flex justify-between">
           <div className="flex gap-1 items-center">
-            <p className="text-[18px] font-bold">{toMember.username}</p>
+            <p className="text-[18px] font-bold">{viewMember.username}</p>
 
             {isNew && (
               <Image

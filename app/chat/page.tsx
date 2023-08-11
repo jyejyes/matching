@@ -30,6 +30,7 @@ export default function Page() {
           {messageRes.messageRooms.map((msg, i) => (
             <ChattingRoomPreview
               key={i}
+              loginMemberId={messageRes.loginMemberId}
               chatInfo={msg}
               isNew={msg.isNewMessageInRoom}
               onClick={() => push(routerPaths.chattingRoom(msg.id))}
