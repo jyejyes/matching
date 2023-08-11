@@ -37,7 +37,4 @@ export const useSendMessage = () => {
       },
     }
   );
-  // return useMutation((sendingMessage: SendMessageType) =>
-  //   sendMessage(sendingMessage)
-  // );
 };

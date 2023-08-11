@@ -6,6 +6,7 @@ import { BottomNavigator } from "#/app/_components/BottomNavigator";
 import { useRouter } from "next/navigation";
 import { useGetMessages } from "#/hooks/apis/useGetMessages";
 import { Loading } from "#/app/_components/Loading";
+import routerPaths from "#/utils/routerPaths";
 
 export default function Page() {
   const { push } = useRouter();
@@ -27,7 +28,7 @@ export default function Page() {
               key={i}
               chatInfo={msg}
               isNew={msg.isNewMessageInRoom}
-              onClick={() => push(`chat/${msg.id}`)}
+              onClick={() => push(routerPaths.chattingRoom(msg.id))}
             />
           ))}
         </div>
