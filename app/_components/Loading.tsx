@@ -1,12 +1,12 @@
-import Lottie from "react-lottie-player";
 import LoadingLottie from "../../public/lottie-loading.json";
+import Lottie from "lottie-react";
+
 export const Loading = () => {
   return (
-    <div className="w-full h-full flex-center-col bg-white bg-opacity-40">
+    <div className={"w-full h-full flex-center"}>
       <Lottie
         loop
         animationData={LoadingLottie}
-        play
         style={{ width: "100px", height: "100px" }}
       />
     </div>
