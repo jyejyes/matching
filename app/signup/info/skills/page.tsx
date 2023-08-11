@@ -83,7 +83,7 @@ export default function Page() {
               size={"sm"}
               onClick={() => handleClickSkill(skill)}
             >
-              {skill}
+              {skill.replaceAll('"', "")}
             </SelectedButton>
           ))}
       </div>
