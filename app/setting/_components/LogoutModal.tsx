@@ -3,6 +3,7 @@ import { Modal } from "#/ui/components/modal/Modal";
 import useModalControl from "#/app/modalControl.state";
 import { useRouter } from "next/navigation";
 import routerPaths from "#/utils/routerPaths";
+import { signOut } from "next-auth/react";
 
 export const LogoutModal = () => {
   const { isLogoutModalOpen, updateIsLogoutModalOpen } = useModalControl();
@@ -10,6 +11,7 @@ export const LogoutModal = () => {
   const { push } = useRouter();
   const handleClickLogout = () => {
     // 로그아웃 로직
+    signOut({ callbackUrl: routerPaths.signup() });
 
     push(routerPaths.signup());
   };

@@ -1,4 +1,6 @@
 const routerPaths = {
+  home: () => "/" as string,
+
   signup: () => "/signup" as string,
   selectedPosition: () => "/signup/info/position" as string,
   selectedSkills: () => "/signup/info/skills" as string,
