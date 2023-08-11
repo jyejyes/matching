@@ -52,14 +52,14 @@ export const useMatchingLike = () => {
 
   return useMutation(matchingLike, {
     onSuccess(res) {
-      if (res.data.usedCount === 1000) {
+      if (res.data?.usedCount === 1000) {
         reset();
 
         return;
       }
 
       //매칭 됐을 때
-      if (res.data.isMatched) {
+      if (res.data?.isMatched) {
         //매칭 완료 창 띄우기
         updateIsMatchingSuccessModalOpen(true);
 
