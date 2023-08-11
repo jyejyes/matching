@@ -23,6 +23,7 @@ export const DeleteChattingRoomModal = ({ chatId }: Props) => {
       // 성공 코드
       if (res.code === 1202) {
         push(routerPaths.chat());
+        updateIsDeleteChatModalOpen(!isDeleteChatModalOpen);
 
         return;
       }
