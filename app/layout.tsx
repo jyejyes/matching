@@ -4,7 +4,7 @@ import LibraryWrapper from "#/app/_components/LibraryWrapper";
 
 export const metadata: Metadata = {
   title: {
-    default: "10days project",
+    default: "tacky : 창업메이트 찾기",
     template: "%s | Next.js App Router",
   },
   description:
