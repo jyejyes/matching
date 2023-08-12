@@ -26,7 +26,7 @@ import { useEffect } from "react";
 type Props = {
   user: MatchingCoworkerInfo;
   rotateDegree: number;
-  triggerLike: "like" | "unlike" | "none";
+  triggerLike: number;
   className?: string;
   imgBlur?: boolean;
   displayedCardIndex?: number;
@@ -51,7 +51,7 @@ export const PeopleCard = ({
 
   const { isMatchingModalOpen, updateIsMatchingModalOpen } = useModalControl();
 
-  const { updateUserChoice } = useUserChoiceInfo();
+  const { userChoice, updateUserChoice } = useUserChoiceInfo();
 
   const cardX = useMotionValue(0);
   const rotate = useTransform(cardX, [-300, 0, 300], [-20, 0, 20]);
@@ -79,10 +79,10 @@ export const PeopleCard = ({
   };
 
   useEffect(() => {
-    if (triggerLike !== "none") {
+    if (triggerLike !== 0) {
       if (currentUserIndex !== user.id) return;
 
-      handleLike(user.id, triggerLike === "like");
+      handleLike(user.id, userChoice === "like");
     }
   }, [triggerLike]);
 

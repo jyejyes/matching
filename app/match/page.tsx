@@ -41,18 +41,12 @@ export default function Page() {
   const lastIndex = todayMatchingUsers.length - 1;
 
   //animation
-  const [triggerLike, setTriggerLike] = useState<"like" | "unlike" | "none">(
-    "none"
-  );
+  const [triggerLike, setTriggerLike] = useState(0);
 
   const handleClickLikeOrUnlike = async (userChoice: "like" | "unlike") => {
     updateUserChoice(userChoice);
 
-    if (userChoice === "like") {
-      setTriggerLike("like");
-    } else {
-      setTriggerLike("unlike");
-    }
+    setTriggerLike((prev) => prev + 1);
   };
 
   if (isLoading) return <Loading />;
