@@ -34,7 +34,7 @@ export default function ChatInfo({ name }: Props) {
       />
 
       <p className="text-center flex-1 text-gray9 text-[17px] font-bold">
-        {name}
+        {name ?? "설정되지 않음"}
       </p>
 
       <Image
