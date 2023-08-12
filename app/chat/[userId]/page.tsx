@@ -24,7 +24,7 @@ export default function Page() {
       {isLoading ? (
         <div></div>
       ) : (
-        <ChatInfo name={messageRoomInfo?.messages[0].messageWriter.username} />
+        <ChatInfo name={messageRoomInfo?.messages[0]?.messageWriter.username} />
       )}
 
       {/*  TODO: scroll 생각하기*/}
@@ -41,7 +41,7 @@ export default function Page() {
             messageRoomInfo?.messages?.map((msg, i) => (
               <SpeechBubble
                 key={msg.id}
-                isMe={msg.messageWriter.id === messageRoomInfo.loginMemberId}
+                isMe={msg?.messageWriter.id === messageRoomInfo.loginMemberId}
                 content={msg.content}
               />
             ))
