@@ -21,7 +21,11 @@ export default function Page() {
         <DeleteChattingRoomModal chatId={messageRoomInfo.matchId} />
       )}
 
-      <ChatInfo name={messageRoomInfo.messages[0].messageWriter.username} />
+      {isLoading ? (
+        <div></div>
+      ) : (
+        <ChatInfo name={messageRoomInfo?.messages[0].messageWriter.username} />
+      )}
 
       {/*  TODO: scroll 생각하기*/}
       <main className="w-full px-4 py-3 flex-grow overflow-y-auto">
