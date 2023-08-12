@@ -27,7 +27,7 @@ export default function Page() {
         </div>
       ) : (
         <div className="flex flex-col flex-grow overflow-y-auto">
-          {messageRes.messageRooms.map((msg, i) => (
+          {messageRes?.messageRooms?.map((msg, i) => (
             <ChattingRoomPreview
               key={i}
               loginMemberId={messageRes.loginMemberId}
