@@ -21,20 +21,25 @@ import {
   useUserChoiceInfo,
 } from "#/app/match/matching.state";
 import useModalControl from "#/app/modalControl.state";
+import { useEffect } from "react";
 
 type Props = {
   user: MatchingCoworkerInfo;
   rotateDegree: number;
+  triggerLike: "like" | "unlike" | "none";
   className?: string;
   imgBlur?: boolean;
   displayedCardIndex?: number;
+  currentUserIndex?: number;
 };
 
 export const PeopleCard = ({
   user,
   rotateDegree,
+  triggerLike,
   className,
   displayedCardIndex,
+  currentUserIndex,
 }: Props) => {
   const { push } = useRouter();
 
@@ -73,11 +78,19 @@ export const PeopleCard = ({
     }
   };
 
+  useEffect(() => {
+    if (triggerLike !== "none") {
+      if (currentUserIndex !== user.id) return;
+
+      handleLike(user.id, triggerLike === "like");
+    }
+  }, [triggerLike]);
+
   const handleLike = async (userId: number, like: boolean) => {
     animate(cardX, like ? 500 : -500, {
       type: "spring",
       stiffness: 100,
-      duration: 3, // 애니메이션 지속 시간을 0.5초로 설정
+      duration: 0.5, // 애니메이션 지속 시간을 0.5초로 설정
     });
 
     const res = await selectedLike({
@@ -89,9 +102,12 @@ export const PeopleCard = ({
       updateIsMatchingModalOpen(true);
 
       setTimeout(() => {
-        deleteTodayMatchingUsers(userId); //유저 삭제
         updateIsMatchingModalOpen(false); //모달 닫기
       }, 1000);
+
+      setTimeout(() => {
+        deleteTodayMatchingUsers(userId); //유저 삭제
+      }, 500);
     }
   };
 

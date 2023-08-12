@@ -17,6 +17,9 @@ import {
   useUserChoiceInfo,
 } from "#/app/match/matching.state";
 import { MatchingToast } from "#/ui/components/Toast/MatchingToast";
+import { useMatchingLike } from "#/hooks/apis/useMatchingLike";
+import routerPaths from "#/utils/routerPaths";
+import { useState } from "react";
 
 export default function Page() {
   const { push } = useRouter();
@@ -25,9 +28,32 @@ export default function Page() {
 
   const { todayMatchingUsers } = useTodayMatchingUsers();
 
-  const { isMatchingModalOpen, isMatchingSuccessModalOpen } = useModalControl();
+  const {
+    isMatchingModalOpen,
+    isMatchingSuccessModalOpen,
+    updateIsMatchingModalOpen,
+  } = useModalControl();
 
-  const { userChoice } = useUserChoiceInfo();
+  const { userChoice, updateUserChoice } = useUserChoiceInfo();
+
+  const { mutateAsync: selectedLike } = useMatchingLike();
+
+  const lastIndex = todayMatchingUsers.length - 1;
+
+  //animation
+  const [triggerLike, setTriggerLike] = useState<"like" | "unlike" | "none">(
+    "none"
+  );
+
+  const handleClickLikeOrUnlike = async (userChoice: "like" | "unlike") => {
+    updateUserChoice(userChoice);
+
+    if (userChoice === "like") {
+      setTriggerLike("like");
+    } else {
+      setTriggerLike("unlike");
+    }
+  };
 
   if (isLoading) return <Loading />;
 
@@ -36,7 +62,6 @@ export default function Page() {
       {/*z-index: 50*/}
       {isMatchingSuccessModalOpen && <MatchingSuccessPopup />}
 
-      {/*  TODO : toast 라이브러리 찾아서 하기 <지금은 시간이 없어>*/}
       {/*z-index: 30*/}
       {isMatchingModalOpen && (
         <MatchingToast
@@ -70,20 +95,27 @@ export default function Page() {
                 user={item}
                 rotateDegree={rotateDegree}
                 displayedCardIndex={i}
+                triggerLike={triggerLike}
+                currentUserIndex={todayMatchingUsers[lastIndex].id}
               />
             </div>
           );
         })}
       </div>
 
-      {
-        // 남은 카드 있을 떄만 보여줌
+      {todayMatchingUsers.length > 0 && (
         <div className="absolute z-20 w-full bottom-20 left-0 flex justify-center gap-10">
-          <UnlikeButton status="match" />
+          <UnlikeButton
+            status="match"
+            onClick={() => handleClickLikeOrUnlike("unlike")}
+          />
 
-          <LikeButton status="match" />
+          <LikeButton
+            status="match"
+            onClick={() => handleClickLikeOrUnlike("like")}
+          />
         </div>
-      }
+      )}
 
       <div className="absolute w-full bottom-0 left-0">
         <BottomNavigator />
