@@ -5,7 +5,10 @@ import { useRouter } from "next/navigation";
 import routerPaths from "#/utils/routerPaths";
 import useModalControl from "#/app/modalControl.state";
 
-export default function ChatInfo() {
+type Props = {
+  name: string;
+};
+export default function ChatInfo({ name }: Props) {
   const { push } = useRouter();
 
   const { isDeleteChatModalOpen, updateIsDeleteChatModalOpen } =
@@ -31,7 +34,7 @@ export default function ChatInfo() {
       />
 
       <p className="text-center flex-1 text-gray9 text-[17px] font-bold">
-        사람이름
+        {name}
       </p>
 
       <Image

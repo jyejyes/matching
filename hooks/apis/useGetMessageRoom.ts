@@ -6,7 +6,11 @@ import { matchSchema, MessageSchema, userSchema } from "#/types/schema/schema";
 export const MsgSchema = z.object({
   id: MessageSchema.messageId,
   content: MessageSchema.content,
-  messageWriterId: MessageSchema.messageWriterId,
+  messageWriter: z.object({
+    id: MessageSchema.messageWriterId,
+    username: userSchema.username,
+    imgUrl: userSchema.imgUrl,
+  }),
   isRead: MessageSchema.isRead,
   messageCreatedTime: MessageSchema.messageCreatedTime,
 });

@@ -21,7 +21,7 @@ export default function Page() {
         <DeleteChattingRoomModal chatId={messageRoomInfo.matchId} />
       )}
 
-      <ChatInfo />
+      <ChatInfo name={messageRoomInfo.messages[0].messageWriter.username} />
 
       {/*  TODO: scroll 생각하기*/}
       <main className="w-full px-4 py-3 flex-grow overflow-y-auto">
@@ -37,7 +37,7 @@ export default function Page() {
             messageRoomInfo?.messages?.map((msg, i) => (
               <SpeechBubble
                 key={msg.id}
-                isMe={msg.messageWriterId === messageRoomInfo.loginMemberId}
+                isMe={msg.messageWriter.id === messageRoomInfo.loginMemberId}
                 content={msg.content}
               />
             ))
