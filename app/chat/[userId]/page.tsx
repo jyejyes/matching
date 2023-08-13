@@ -24,7 +24,7 @@ export default function Page() {
       {isLoading ? (
         <div></div>
       ) : (
-        <ChatInfo name={messageRoomInfo?.messages[0]?.messageWriter.username} />
+        <ChatInfo name={messageRoomInfo?.partnerName} />
       )}
 
       {/*  TODO: scroll 생각하기*/}
