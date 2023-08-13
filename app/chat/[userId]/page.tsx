@@ -24,7 +24,11 @@ export default function Page() {
       {isLoading ? (
         <div></div>
       ) : (
-        <ChatInfo name={messageRoomInfo?.partnerName} />
+        <ChatInfo
+          matchId={messageRoomInfo.matchId}
+          name={messageRoomInfo?.partnerName}
+          partnerId={messageRoomInfo?.partnerId}
+        />
       )}
 
       {/*  TODO: scroll 생각하기*/}

@@ -18,6 +18,7 @@ export const MsgSchema = z.object({
 export const MessageRoomSchema = z.object({
   loginMemberId: userSchema.id,
   partnerName: userSchema.username,
+  partnerId: userSchema.id,
   matchId: matchSchema.id,
   messages: z.array(MsgSchema),
 });

@@ -1,14 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import routerPaths from "#/utils/routerPaths";
 import useModalControl from "#/app/modalControl.state";
+import Link from "next/link";
 
 type Props = {
   name: string;
+  matchId: number;
+  partnerId: number;
 };
-export default function ChatInfo({ name }: Props) {
+export default function ChatInfo({ name, matchId, partnerId }: Props) {
   const { push } = useRouter();
 
   const { isDeleteChatModalOpen, updateIsDeleteChatModalOpen } =
@@ -33,9 +36,21 @@ export default function ChatInfo({ name }: Props) {
         onClick={handleClickBack}
       />
 
-      <p className="text-center flex-1 text-gray9 text-[17px] font-bold">
-        {name ?? "설정되지 않음"}
-      </p>
+      <div className="flex flex-col items-center gap-[2px] flex-1 ">
+        <p className="text-center text-gray9 text-[17px] font-bold">
+          {name ?? "설정되지 않음"}
+        </p>
+
+        <Link
+          href={{
+            pathname: routerPaths.people(partnerId),
+            query: { matchId: matchId },
+          }}
+          className="bg-gray1 rounded-[4px] px-2 text-pointBlue2 font-medium w-fit text-[14px]"
+        >
+          프로필 보기
+        </Link>
+      </div>
 
       <Image
         src={"/images/chat/ic-trash.svg"}
