@@ -17,7 +17,6 @@ import {
   useSearchParams,
 } from "next/navigation";
 import { useGetUserInfo } from "#/hooks/apis/useGetUserInformation";
-import { match } from "sucrase/dist/types/parser/tokenizer";
 
 export default function Page() {
   const { isMatchingModalOpen, isMatchingSuccessModalOpen } = useModalControl();
