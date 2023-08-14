@@ -13,7 +13,7 @@ export const HaveSkills = ({ skills }: Props) => {
       <div className="flex gap-[10px] flex-wrap">
         {skills.map((skill, i) => (
           <SelectedButton key={i} selected={false} disabled={true} size="sm">
-            {skill}
+            {skill.replaceAll('"', "")}
           </SelectedButton>
         ))}
       </div>
