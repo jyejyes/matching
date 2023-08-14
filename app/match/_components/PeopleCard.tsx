@@ -181,7 +181,7 @@ export const PeopleCard = ({
           <div className="flex flex-wrap gap-1">
             {user?.skill?.map((item, i) => (
               <Tag type="language" key={i}>
-                {item}
+                {item.replaceAll('"', "")}
               </Tag>
             ))}
           </div>
