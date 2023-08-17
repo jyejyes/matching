@@ -139,7 +139,6 @@ export const PeopleCard = ({
       <Image
         src={user?.imgUrl ?? ""}
         alt={user?.username ?? "정해지지 않음"}
-        className="absolute left-0 top-0"
         fill
       />
 
