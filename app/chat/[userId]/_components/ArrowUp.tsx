@@ -8,7 +8,7 @@ export const ArrowUp = ({
   onClick?: () => void;
 }) => {
   return (
-    <button onClick={onClick} disabled={disabled}>
+    <button aria-label={"메세지 보내기"} onClick={onClick} disabled={disabled}>
       <svg
         width="24"
         height="24"
