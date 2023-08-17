@@ -136,10 +136,11 @@ export const PeopleCard = ({
         className
       )}
     >
-      <img
+      <Image
         src={user?.imgUrl ?? ""}
         alt={user?.username ?? "정해지지 않음"}
-        className="absolute left-0 top-0 w-full h-full"
+        className="absolute left-0 top-0"
+        fill
       />
 
       <div className="z-10 w-full h-full flex flex-col justify-between">
