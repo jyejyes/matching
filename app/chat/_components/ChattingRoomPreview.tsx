@@ -25,8 +25,10 @@ export const ChattingRoomPreview = ({
     >
       <img
         src={viewMember.imgUrl}
+        width={50}
+        height={50}
         alt={"유저 이미지 사진"}
-        className="rounded-full w-[50px] h-[50px]"
+        className="rounded-full"
       />
 
       <div className="flex flex-col flex-1">
