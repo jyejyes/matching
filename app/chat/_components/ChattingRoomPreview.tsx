@@ -23,7 +23,7 @@ export const ChattingRoomPreview = ({
       className="w-full flex gap-3 py-[13px] cursor-pointer px-4 hover:bg-gray1"
       onClick={onClick}
     >
-      <img
+      <Image
         src={viewMember.imgUrl}
         width={50}
         height={50}
