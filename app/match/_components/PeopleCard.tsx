@@ -140,6 +140,7 @@ export const PeopleCard = ({
         src={user?.imgUrl ?? ""}
         alt={user?.username ?? "정해지지 않음"}
         fill
+        priority
       />
 
       <div className="z-10 w-full h-full flex flex-col justify-between">
