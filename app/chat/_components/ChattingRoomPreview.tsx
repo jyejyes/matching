@@ -23,7 +23,11 @@ export const ChattingRoomPreview = ({
       className="w-full flex gap-3 py-[13px] cursor-pointer px-4 hover:bg-gray1"
       onClick={onClick}
     >
-      <img src={viewMember.imgUrl} className="rounded-full w-[50px] h-[50px]" />
+      <img
+        src={viewMember.imgUrl}
+        alt={"유저 이미지 사진"}
+        className="rounded-full w-[50px] h-[50px]"
+      />
 
       <div className="flex flex-col flex-1">
         <div className="flex justify-between">
