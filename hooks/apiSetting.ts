@@ -31,10 +31,11 @@ apiClient.interceptors.request.use(
 );
 
 apiClient.interceptors.response.use((response) => {
-  if (response.data.code >= 4100 || response.data.code <= 4104) {
+  const { config, status, data } = response;
+  if (data.code === 4003) {
     //토스트
-    // alert(response.data.message);
-    // push(routerPaths.signup());
+    alert(data.message);
+    window.location.assign(routerPaths.signup());
   }
 
   return response;
