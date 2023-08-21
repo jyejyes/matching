@@ -15,7 +15,6 @@ export const SocialLogin = () => {
       //로컬 스토리지에 저장
       LocalStorage.setItem("user", JSON.stringify(session.user));
 
-      //요청 보내기 (expires가 남은 경우 안하고 싶은데)
       serviceLogin({
         user: {
           id: session.user.id,

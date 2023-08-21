@@ -20,7 +20,7 @@ export const ChattingRoomPreview = ({
 
   return (
     <div
-      className="w-full flex gap-3 py-[13px] cursor-pointer px-4 hover:bg-gray1"
+      className="w-full flex items-start gap-3 py-[13px] cursor-pointer px-4 hover:bg-gray1"
       onClick={onClick}
     >
       <Image

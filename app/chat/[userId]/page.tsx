@@ -7,6 +7,7 @@ import useModalControl from "#/app/modalControl.state";
 import { DeleteChattingRoomModal } from "#/app/chat/[userId]/_components/DeleteChattingRoomModal";
 import { useGetMessageRoom } from "#/hooks/apis/useGetMessageRoom";
 import { usePathname } from "next/navigation";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 export default function Page() {
   const roomId = Number(usePathname().split("/")[2]);
@@ -14,6 +15,14 @@ export default function Page() {
   const { isDeleteChatModalOpen } = useModalControl();
 
   const { data: messageRoomInfo, isLoading } = useGetMessageRoom(roomId);
+
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useLayoutEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, []);
 
   return (
     <div className="w-full h-full flex flex-col overflow-hidden relative bg-gray1">
@@ -32,7 +41,10 @@ export default function Page() {
       )}
 
       {/*  TODO: scroll 생각하기*/}
-      <main className="w-full px-4 py-3 flex-grow overflow-y-auto">
+      <main
+        ref={scrollRef}
+        className="w-full px-4 py-3 flex-grow overflow-y-auto"
+      >
         <p className="text-[14px] text-center text-gray6 p-3">
           매칭 후 첫 인사 시<br />
           언제나 상대방을 존중해주는 것, 잊지 마세요!
