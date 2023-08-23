@@ -9,6 +9,7 @@ import { EventSourcePolyfill } from "event-source-polyfill";
 import useModalControl from "#/app/modalControl.state";
 import modalControlState from "#/app/modalControl.state";
 import { MatchingSuccessPopup } from "#/app/match/_components/MatchingSuccessPopup";
+import useChatControl from "#/app/chat/chat.state";
 
 type Props = {
   children: React.ReactNode;
@@ -17,8 +18,12 @@ type Props = {
 export default function LibraryWrapper({ children }: Props) {
   const queryClient = new QueryClient();
 
+  //매칭 State
   const { updateMatchingSuccessInfo } = useMatchingSuccessInfo();
   const { updateIsMatchingSuccessModalOpen } = useModalControl();
+
+  //신규 메세지 state
+  const { updateIsNewChat } = useChatControl();
 
   const token = LocalStorage.getItem("token");
 
@@ -27,7 +32,7 @@ export default function LibraryWrapper({ children }: Props) {
       `https://project-308.kro.kr/subscribe/${Math.ceil(Math.random() * 1000)}`,
       {
         headers: {
-          Authorization: token ?? "",
+          Authorization: `Bearer ${token}` ?? "",
         },
       }
     );
@@ -44,6 +49,14 @@ export default function LibraryWrapper({ children }: Props) {
         updateMatchingSuccessInfo(content);
 
         updateIsMatchingSuccessModalOpen(true);
+
+        return;
+      }
+
+      if (type === "MESSAGE") {
+        updateIsNewChat(true);
+
+        return;
       }
     };
 
