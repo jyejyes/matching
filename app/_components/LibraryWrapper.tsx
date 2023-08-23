@@ -28,43 +28,57 @@ export default function LibraryWrapper({ children }: Props) {
   const token = LocalStorage.getItem("token");
 
   useEffect(() => {
-    const eventSource = new EventSourcePolyfill(
-      `https://project-308.kro.kr/subscribe/${Math.ceil(Math.random() * 1000)}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}` ?? "",
-        },
-      }
-    );
+    let eventSource: EventSourcePolyfill;
 
-    eventSource.onmessage = async (event) => {
-      const res = await event.data;
-      const parsedRes = JSON.parse(res);
+    const connectEventSource = () => {
+      eventSource = new EventSourcePolyfill(
+        `https://project-308.kro.kr/subscribe/${Math.ceil(
+          Math.random() * 1000
+        )}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}` ?? "",
+          },
+        }
+      );
 
-      const {
-        data: { type, content },
-      } = parsedRes;
+      eventSource.onmessage = async (event) => {
+        const res = await event.data;
+        const parsedRes = JSON.parse(res);
 
-      if (type === "MATCH") {
-        updateMatchingSuccessInfo(content);
+        const {
+          data: { type, content },
+        } = parsedRes;
 
-        updateIsMatchingSuccessModalOpen(true);
+        console.log(parsedRes);
 
-        return;
-      }
+        if (type === "MATCH") {
+          updateMatchingSuccessInfo(content);
 
-      if (type === "MESSAGE") {
-        updateIsNewChat(true);
+          updateIsMatchingSuccessModalOpen(true);
 
-        return;
-      }
+          return;
+        }
+
+        if (type === "MESSAGE") {
+          updateIsNewChat(true);
+
+          return;
+        }
+      };
+
+      eventSource.onerror = () => {
+        eventSource.close();
+
+        reconnectEventSource();
+      };
     };
 
-    eventSource.onerror = () => {
-      eventSource.close();
+    const reconnectEventSource = () => {
+      connectEventSource();
     };
 
-    return () => eventSource.close();
+    connectEventSource();
   }, []);
 
   const { isMatchingSuccessModalOpen } = modalControlState();
