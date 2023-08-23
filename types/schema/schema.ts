@@ -74,3 +74,17 @@ export const MessageSchema = {
   messageCreatedTime: TimeSchema.time,
   isNewMessageInRoom: z.boolean(),
 };
+
+//매칭 관련
+
+//매칭 성공 정보
+export const MatchingSuccessInfoSchema = z.object({
+  matchInfo: z.object({
+    id: matchSchema.id,
+    fromMember: fromToUserSchema,
+    toMember: fromToUserSchema,
+    matchTime: matchSchema.matchTime,
+    isChecked: z.boolean(),
+  }),
+  messageRoomId: ChatSchema.messageRoomId.nullish(),
+});

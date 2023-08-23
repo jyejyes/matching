@@ -15,6 +15,11 @@ const routerPaths = {
   chattingRoom: (userId: number) => `/chat/${userId}` as string,
 
   people: (userId: number) => `/people/${userId}` as string,
+
+  setting: () => "/setting" as string,
+  settingProfile: () => "/setting/profile" as string,
+  settingIntro: () => "/setting/intro" as string,
+  settingMatchingJob: () => "/setting/matchingJob" as string,
 };
 
 export default routerPaths;
