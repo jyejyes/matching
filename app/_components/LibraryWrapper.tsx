@@ -39,6 +39,7 @@ export default function LibraryWrapper({ children }: Props) {
           headers: {
             Authorization: `Bearer ${token}` ?? "",
           },
+          heartbeatTimeout: 10 * 60 * 1000,
         }
       );
 
