@@ -14,6 +14,9 @@ dependencies:
   "@tanstack/react-query":
     specifier: 4.32.6
     version: 4.32.6(react-dom@18.2.0)(react@18.2.0)
+  "@types/event-source-polyfill":
+    specifier: 1.0.1
+    version: 1.0.1
   axios:
     specifier: 1.4.0
     version: 1.4.0
@@ -29,6 +32,9 @@ dependencies:
   dotenv:
     specifier: 16.3.1
     version: 16.3.1
+  event-source-polyfill:
+    specifier: 1.0.31
+    version: 1.0.31
   framer-motion:
     specifier: 10.15.0
     version: 10.15.0(react-dom@18.2.0)(react@18.2.0)
@@ -102,7 +108,7 @@ devDependencies:
     version: 8.30.0
   eslint-config-next:
     specifier: latest
-    version: 13.4.13(eslint@8.30.0)(typescript@4.9.4)
+    version: 13.4.19(eslint@8.30.0)(typescript@4.9.4)
   lint-staged:
     specifier: 13.1.0
     version: 13.1.0
@@ -2009,10 +2015,10 @@ packages:
       }
     dev: false
 
-  /@next/eslint-plugin-next@13.4.13:
+  /@next/eslint-plugin-next@13.4.19:
     resolution:
       {
-        integrity: sha512-RpZeXlPxQ9FLeYN84XHDqRN20XxmVNclYCraLYdifRsmibtcWUWdwE/ANp2C8kgesFRsvwfsw6eOkYNl9sLJ3A==,
+        integrity: sha512-N/O+zGb6wZQdwu6atMZHbR7T9Np5SUFUjZqCbj0sXm+MwQO35M8TazVB4otm87GkXYs2l6OPwARd3/PUWhZBVQ==,
       }
     dependencies:
       glob: 7.1.7
@@ -2465,6 +2471,13 @@ packages:
     resolution:
       {
         integrity: sha512-LKVP3cgXBT9RYj+t+9FDKwS5tdI+rPBXaNSkma7hvqy35lc7mAokC2zsqWJH0LaqIt3B962nuYI77hsJoT1gow==,
+      }
+    dev: false
+
+  /@types/event-source-polyfill@1.0.1:
+    resolution:
+      {
+        integrity: sha512-dls8b0lUgJ/miRApF0efboQ9QZnAm7ofTO6P1ILu8bRPxUFKDxVwFf8+TeuuErmNui6blpltyr7+eV72dbQXlQ==,
       }
     dev: false
 
@@ -3816,10 +3829,10 @@ packages:
     engines: { node: ">=10" }
     dev: true
 
-  /eslint-config-next@13.4.13(eslint@8.30.0)(typescript@4.9.4):
+  /eslint-config-next@13.4.19(eslint@8.30.0)(typescript@4.9.4):
     resolution:
       {
-        integrity: sha512-EXAh5h1yG/YTNa5YdskzaSZncBjKjvFe2zclMCi2KXyTsXha22wB6MPs/U7idB6a2qjpBdbZcruQY1TWjfNMZw==,
+        integrity: sha512-WE8367sqMnjhWHvR5OivmfwENRQ1ixfNE9hZwQqNCsd+iM3KnuMc1V8Pt6ytgjxjf23D+xbesADv9x3xaKfT3g==,
       }
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
@@ -3828,7 +3841,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      "@next/eslint-plugin-next": 13.4.13
+      "@next/eslint-plugin-next": 13.4.19
       "@rushstack/eslint-patch": 1.3.2
       "@typescript-eslint/parser": 5.62.0(eslint@8.30.0)(typescript@4.9.4)
       eslint: 8.30.0
@@ -4160,6 +4173,13 @@ packages:
         integrity: sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==,
       }
     engines: { node: ">=0.10.0" }
+
+  /event-source-polyfill@1.0.31:
+    resolution:
+      {
+        integrity: sha512-4IJSItgS/41IxN5UVAVuAyczwZF7ZIEsM1XAoUzIHA6A+xzusEZUutdXz2Nr+MQPLxfTiCvqE79/C8HT8fKFvA==,
+      }
+    dev: false
 
   /execa@5.1.1:
     resolution:
