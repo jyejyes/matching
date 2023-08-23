@@ -7,6 +7,7 @@ import {
   MessageSchema,
   userSchema,
 } from "#/types/schema/schema";
+import useChatControl from "#/app/chat/chat.state";
 
 export const GetMessageSchema = z.object({
   id: ChatSchema.messageRoomId,
@@ -38,12 +39,14 @@ const getMessage = async () => {
 };
 
 export const useGetMessages = () => {
+  const { isNewChat } = useChatControl();
+
   const {
     isLoading,
     isSuccess,
     isError,
     data = {} as GetMessagesResponseType,
-  } = useQuery(["message"], getMessage);
+  } = useQuery(["message", isNewChat], getMessage);
 
   return { isLoading, isError, isSuccess, data };
 };
