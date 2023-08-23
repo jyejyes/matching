@@ -24,7 +24,7 @@ export default function LibraryWrapper({ children }: Props) {
 
   useEffect(() => {
     const eventSource = new EventSourcePolyfill(
-      "https://project-308.kro.kr/subscribe/25",
+      `https://project-308.kro.kr/subscribe/${Math.ceil(Math.random() * 1000)}`,
       {
         headers: {
           Authorization: token ?? "",
@@ -39,6 +39,8 @@ export default function LibraryWrapper({ children }: Props) {
       const {
         data: { type, content },
       } = parsedRes;
+
+      console.log(parsedRes);
 
       if (type === "MATCH") {
         updateMatchingSuccessInfo(content);
