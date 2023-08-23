@@ -15,7 +15,7 @@ const MemberSchema = z.object({
   skill: userSchema.skill,
 });
 
-type MemberType = z.infer<typeof MemberSchema>;
+export type MemberType = z.infer<typeof MemberSchema>;
 const member = async () => {
   const response = await apiClient.get("/member");
 
