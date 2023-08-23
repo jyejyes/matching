@@ -50,8 +50,6 @@ export default function LibraryWrapper({ children }: Props) {
           data: { type, content },
         } = parsedRes;
 
-        console.log(parsedRes);
-
         if (type === "MATCH") {
           updateMatchingSuccessInfo(content);
 
