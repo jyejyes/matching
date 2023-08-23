@@ -27,7 +27,7 @@ export default function Buttons() {
       like: userChoice === "like",
     });
 
-    if (res.code === 1201) {
+    if (res) {
       updateIsMatchingModalOpen(true);
 
       setTimeout(() => {
