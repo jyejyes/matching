@@ -8,6 +8,7 @@ import UserQuit from "#/app/setting/_components/UserQuit";
 import useModalControl from "#/app/modalControl.state";
 import { LogoutModal } from "#/app/setting/_components/LogoutModal";
 import { DeleteModal } from "#/app/setting/_components/DeleteModal";
+import { MatchingSetting } from "#/app/setting/_components/MatchingSetting";
 
 export default function Page() {
   const { isLogoutModalOpen, isDeleteModalOpen } = useModalControl();
@@ -21,6 +22,10 @@ export default function Page() {
 
       <div className="py-[10px] mb-6">
         <UserSettingInfo />
+      </div>
+
+      <div className="mb-4">
+        <MatchingSetting />
       </div>
 
       <div>
