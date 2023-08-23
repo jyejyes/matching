@@ -1,11 +1,9 @@
 "use client";
 
 import { PeopleCard } from "#/app/match/_components/PeopleCard";
-import { useRouter } from "next/navigation";
 import MatchTitle from "#/app/match/_components/MatchTitle";
 
 import { BottomNavigator } from "#/app/_components/BottomNavigator";
-import { MatchingSuccessPopup } from "#/app/match/_components/MatchingSuccessPopup";
 import { useGetAllFeed } from "#/hooks/apis/useGetAllFeed";
 import { UnlikeButton } from "#/app/match/_components/UnlikeButton";
 import { LikeButton } from "#/app/match/_components/LikeButton";
@@ -18,27 +16,18 @@ import {
 } from "#/app/match/matching.state";
 import { MatchingToast } from "#/ui/components/Toast/MatchingToast";
 import { useMatchingLike } from "#/hooks/apis/useMatchingLike";
-import routerPaths from "#/utils/routerPaths";
 import { useState } from "react";
 
 export default function Page() {
-  const { push } = useRouter();
-
   const { isLoading } = useGetAllFeed();
 
   const { todayMatchingUsers } = useTodayMatchingUsers();
 
-  const {
-    isMatchingModalOpen,
-    isMatchingSuccessModalOpen,
-    updateIsMatchingModalOpen,
-  } = useModalControl();
+  const { isMatchingModalOpen, isMatchingSuccessModalOpen } = useModalControl();
 
   const { userChoice, updateUserChoice } = useUserChoiceInfo();
 
   const { mutateAsync: selectedLike } = useMatchingLike();
-
-  const lastIndex = todayMatchingUsers.length - 1;
 
   //animation
   const [triggerLike, setTriggerLike] = useState(0);
@@ -53,9 +42,6 @@ export default function Page() {
 
   return (
     <div className="w-full h-full p-4 relative">
-      {/*z-index: 50*/}
-      {isMatchingSuccessModalOpen && <MatchingSuccessPopup />}
-
       {/*z-index: 30*/}
       {isMatchingModalOpen && (
         <MatchingToast

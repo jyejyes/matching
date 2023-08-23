@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { MatchingCoworkerInfo } from "#/hooks/apis/useGetFeed";
 import { UserLikeResponseSchema } from "#/hooks/apis/useMatchingLike";
 import { z } from "zod";
+import { MatchingSuccessInfoSchema } from "#/types/schema/schema";
 
 //현재 화면에 표시되는 매칭 대상자 정보 저장
 type UserInfoState = {
@@ -37,8 +38,8 @@ export const useTodayMatchingUsers = create<TodayMatchingUsersType>((set) => ({
   },
 }));
 
-//매칭 성공 대상자 정보 저장
-type MatchingSuccessInfoType = z.infer<typeof UserLikeResponseSchema>;
+//매칭 성공 대상자 정보 타입
+type MatchingSuccessInfoType = z.infer<typeof MatchingSuccessInfoSchema>;
 
 type MatchingSuccessInfo = {
   matchingSuccessInfo: MatchingSuccessInfoType;

@@ -43,9 +43,6 @@ export default function Page() {
 
   return (
     <div className="w-full h-full relative flex flex-col justify-between">
-      {/*z-index: 50*/}
-      {isMatchingSuccessModalOpen && <MatchingSuccessPopup />}
-
       {isMatchingModalOpen && (
         <MatchingToast
           isLike={userChoice === "like"}

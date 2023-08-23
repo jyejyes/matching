@@ -81,7 +81,7 @@ export const MatchingSuccessPopup = () => {
             width={24}
             height={24}
           />
-          다른 매칭 계속하기
+          다음에 확인하기
         </button>
       </div>
     </div>

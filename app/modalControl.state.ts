@@ -4,8 +4,10 @@ type ModalControlState = {
   isLogoutModalOpen: boolean;
   isDeleteModalOpen: boolean;
   isDeleteChatModalOpen: boolean;
-  isMatchingSuccessModalOpen: boolean; //매칭 성공 모달
-  isMatchingModalOpen: boolean; //매칭 선택 모달
+  //매칭 성공 모달
+  isMatchingSuccessModalOpen: boolean;
+  //매칭 선택 모달
+  isMatchingModalOpen: boolean;
 
   updateIsLogoutModalOpen: (newIsLogoutModalOpen: boolean) => void;
   updateIsDeleteModalOpen: (newIsDeleteModalOpen: boolean) => void;
