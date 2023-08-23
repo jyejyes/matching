@@ -7,7 +7,7 @@ import useModalControl from "#/app/modalControl.state";
 import { DeleteChattingRoomModal } from "#/app/chat/[userId]/_components/DeleteChattingRoomModal";
 import { useGetMessageRoom } from "#/hooks/apis/useGetMessageRoom";
 import { usePathname } from "next/navigation";
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 
 export default function Page() {
   const roomId = Number(usePathname().split("/")[2]);

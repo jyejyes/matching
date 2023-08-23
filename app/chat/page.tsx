@@ -1,17 +1,24 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { ChattingRoomPreview } from "#/app/chat/_components/ChattingRoomPreview";
 import { BottomNavigator } from "#/app/_components/BottomNavigator";
 import { useRouter } from "next/navigation";
 import { useGetMessages } from "#/hooks/apis/useGetMessages";
 import { Loading } from "#/app/_components/Loading";
 import routerPaths from "#/utils/routerPaths";
+import useChatControl from "#/app/chat/chat.state";
 
 export default function Page() {
   const { push } = useRouter();
 
   const { data: messageRes, isLoading } = useGetMessages();
+
+  const { updateIsNewChat } = useChatControl();
+
+  useEffect(() => {
+    updateIsNewChat(false);
+  }, []);
 
   return (
     <div className="w-full h-full relative flex flex-col overflow-hidden">

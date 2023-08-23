@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useParams, usePathname, useRouter } from "next/navigation";
+import useChatControl from "#/app/chat/chat.state";
 
 const ICON = [
   {
@@ -24,6 +25,8 @@ export const BottomNavigator = () => {
 
   const { push } = useRouter();
 
+  const { isNewChat } = useChatControl();
+
   const handleClickIcon = (name: string) => {
     push(`/${name}`);
   };
@@ -34,7 +37,7 @@ export const BottomNavigator = () => {
       {ICON.map((icon, index) => (
         <div
           key={index}
-          className="flex-1 flex-center cursor-pointer"
+          className="flex-1 flex-center cursor-pointer relative"
           onClick={() => handleClickIcon(icon.name)}
         >
           <Image
@@ -47,6 +50,18 @@ export const BottomNavigator = () => {
             width={24}
             height={24}
           />
+          {
+            // 새로운 메세지가 있을 경우
+            icon.name === "chat" && isNewChat && (
+              <Image
+                src={"/images/chat/ic-new.svg"}
+                alt={"new"}
+                width={14}
+                height={14}
+                className="absolute top-[23%] right-[39%]"
+              />
+            )
+          }
         </div>
       ))}
     </div>
