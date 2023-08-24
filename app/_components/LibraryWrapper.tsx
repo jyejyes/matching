@@ -39,7 +39,8 @@ export default function LibraryWrapper({ children }: Props) {
           headers: {
             Authorization: `Bearer ${token}` ?? "",
           },
-          heartbeatTimeout: 10 * 60 * 1000,
+
+          heartbeatTimeout: 300 * 60 * 1000,
         }
       );
 
@@ -66,10 +67,11 @@ export default function LibraryWrapper({ children }: Props) {
         }
       };
 
-      eventSource.onerror = () => {
+      eventSource.onerror = (error) => {
         eventSource.close();
 
-        reconnectEventSource();
+        //jwt 만료 없을 때 특정조건 추가
+        // reconnectEventSource();
       };
     };
 
