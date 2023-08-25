@@ -10,6 +10,7 @@ import useModalControl from "#/app/modalControl.state";
 import modalControlState from "#/app/modalControl.state";
 import { MatchingSuccessPopup } from "#/app/match/_components/MatchingSuccessPopup";
 import useChatControl from "#/app/chat/chat.state";
+import routerPaths from "#/utils/routerPaths";
 
 type Props = {
   children: React.ReactNode;
@@ -40,7 +41,7 @@ export default function LibraryWrapper({ children }: Props) {
             Authorization: `Bearer ${token}` ?? "",
           },
 
-          heartbeatTimeout: 300 * 60 * 1000,
+          heartbeatTimeout: 10 * 60 * 1000,
         }
       );
 
@@ -65,13 +66,18 @@ export default function LibraryWrapper({ children }: Props) {
 
           return;
         }
+
+        if (type === "ERROR") {
+          alert("토큰이 만료 되었습니다. 다시 로그인 해주세요.");
+
+          window.location.assign(routerPaths.signup());
+        }
       };
 
       eventSource.onerror = (error) => {
         eventSource.close();
 
-        //jwt 만료 없을 때 특정조건 추가
-        // reconnectEventSource();
+        reconnectEventSource();
       };
     };
 
