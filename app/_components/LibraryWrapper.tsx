@@ -31,14 +31,14 @@ export default function LibraryWrapper({ children }: Props) {
   useEffect(() => {
     let eventSource: EventSourcePolyfill;
 
-    const connectEventSource = () => {
+    const connectEventSource = async () => {
       eventSource = new EventSourcePolyfill(
         `https://project-308.kro.kr/subscribe/${Math.ceil(
           Math.random() * 1000
         )}`,
         {
           headers: {
-            Authorization: `Bearer ${token}` ?? "",
+            Authorization: `Bearer ${token}`,
           },
 
           heartbeatTimeout: 10 * 60 * 1000,
@@ -48,6 +48,8 @@ export default function LibraryWrapper({ children }: Props) {
       eventSource.onmessage = async (event) => {
         const res = await event.data;
         const parsedRes = JSON.parse(res);
+
+        console.log(parsedRes);
 
         const {
           data: { type, content },
@@ -68,24 +70,22 @@ export default function LibraryWrapper({ children }: Props) {
         }
 
         if (type === "ERROR") {
-          alert("토큰이 만료 되었습니다. 다시 로그인 해주세요.");
-
           window.location.assign(routerPaths.signup());
         }
       };
 
-      eventSource.onerror = (error) => {
+      eventSource.onerror = (event) => {
         eventSource.close();
-
-        reconnectEventSource();
       };
     };
 
-    const reconnectEventSource = () => {
+    const interval = setInterval(() => {
       connectEventSource();
-    };
+    }, 10 * 60 * 1000);
 
-    connectEventSource();
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   const { isMatchingSuccessModalOpen } = modalControlState();
