@@ -14,7 +14,10 @@ const getSkills = async (query: UserInfoState["position"]) => {
 export const useGetSkills = (query: UserInfoState["position"]) => {
   const { isLoading, isError, data, isSuccess } = useQuery<SkillType[]>(
     ["skills", query],
-    () => getSkills(query)
+    () => getSkills(query),
+    {
+      enabled: !!query,
+    }
   );
 
   return { isLoading, isError, data, isSuccess };
