@@ -7,8 +7,17 @@ import { setCookie } from "#/utils/Cookie/Cookie";
 import routerPaths from "#/utils/routerPaths";
 import { useRouter } from "next/navigation";
 import LocalStorage from "#/utils/LocalStorage";
+import {
+  isErrorResponse,
+  isSuccessResponse,
+  TotalResponseSchema,
+} from "#/types/response/schema";
 
 // TODO: success util하나 만들어서 감싸서 나중에 사용할것
+// const LoginResponseSchema = z.object({
+//   token: tokenSchema.jwtToken,
+// });
+
 const LoginResponseSchema = z.object({
   code: z.number(),
   data: z
@@ -36,12 +45,17 @@ const login = async (session: LoginReqType) => {
   const response = await apiClient.post("/login-jwt", session);
 
   return LoginResponseSchema.parse(response.data);
+  // return TotalResponseSchema(LoginResponseSchema).parse(response.data);
 };
 export const useLogin = () => {
   const { push } = useRouter();
 
   return useMutation(login, {
     onSuccess(res) {
+      // if (isSuccessResponse(res)) {
+      //   console.log(res.data.token);
+      // }
+
       //가입 정보가 있는 경우(회원인 경우)
       if (res.code === 1101 && res.data) {
         LocalStorage.setItem("token", res.data.token);

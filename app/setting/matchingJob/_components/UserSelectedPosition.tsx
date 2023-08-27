@@ -4,16 +4,25 @@ import { POSITIONS } from "#/constant/signup.constant";
 import { SelectedButton } from "#/ui/components/SelectedButton";
 import { MemberType } from "#/hooks/apis/useGetMember";
 import { useEffect } from "react";
-import useUserInfo from "#/app/signup/store/useUserInfo";
+import useUserInfo, { UserInfoState } from "#/app/signup/store/useUserInfo";
 
 export const UserSelectedPosition = (props: MemberType) => {
-  const { interest, updateInterest } = useUserInfo();
+  const { interest, updateInterest, deleteInterest } = useUserInfo();
 
   useEffect(() => {
     props?.interest?.forEach((item) => {
       updateInterest(item);
     });
   }, [props.interest]);
+
+  const handleClickInterest = (selectedInterest: UserInfoState["position"]) => {
+    if (interest.includes(selectedInterest)) {
+      deleteInterest(selectedInterest);
+      return;
+    }
+
+    updateInterest(selectedInterest);
+  };
 
   return (
     <div>
@@ -27,7 +36,7 @@ export const UserSelectedPosition = (props: MemberType) => {
               size={"lg"}
               selected={interest.includes(position.dev)}
               disabled={false}
-              // onClick={() => handleClickInterest(position.dev)}
+              onClick={() => handleClickInterest(position.dev)}
             >
               {position.user}
             </SelectedButton>

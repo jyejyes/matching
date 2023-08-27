@@ -5,9 +5,27 @@ import { useGetMember } from "#/hooks/apis/useGetMember";
 import { UserPosition } from "#/app/setting/intro/_components/UserPosition";
 import React from "react";
 import { DefaultButton } from "#/ui/components/DefaultButton";
+import useUserInfo from "#/app/signup/store/useUserInfo";
+import { useChangeMemberInfo } from "#/hooks/apis/useChangeMemberInfo";
 
 export default function Page() {
   const { isLoading, data } = useGetMember();
+
+  const {
+    username: userUpdatedName,
+    skills: userUpdatedSkills,
+    intro: userUpdatedIntro,
+  } = useUserInfo();
+
+  const { mutate } = useChangeMemberInfo();
+
+  const handleClickSave = () => {
+    mutate({
+      username: userUpdatedName,
+      skill: userUpdatedSkills,
+      intro: userUpdatedIntro,
+    });
+  };
 
   return (
     <div className={"w-full h-full flex flex-col items-center relative"}>
@@ -18,7 +36,9 @@ export default function Page() {
       </div>
 
       <div className={"absolute bottom-0 w-full p-4"}>
-        <DefaultButton disabled={false}>저장하기</DefaultButton>
+        <DefaultButton onClick={handleClickSave} disabled={false}>
+          저장하기
+        </DefaultButton>
       </div>
     </div>
   );

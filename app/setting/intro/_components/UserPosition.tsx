@@ -32,9 +32,16 @@ export const UserPosition = (props: MemberType) => {
   };
 
   useEffect(() => {
+    //username
+    updateUsername(props.username);
+
+    //skill
     props?.skill?.forEach((item) => {
       updateSkills(item);
     });
+
+    //intro
+    updateIntro(props.intro);
   }, [props.skill]);
 
   if (isLoading) <div>loading...</div>;
