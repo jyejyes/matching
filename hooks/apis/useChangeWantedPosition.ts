@@ -10,20 +10,23 @@ export const MemberWanted = z.object({
 export type MemberWanted = z.infer<typeof MemberWanted>;
 
 const patchMemberWanted = async (positions: MemberWanted) => {
-  const response = await apiClient.patch(`/member/interest`, positions);
+  if (positions.positions) {
+    const response = await apiClient.patch(
+      `/member/interest?positions=${positions.positions.toString()}`
+    );
 
-  return response.data;
+    return response.data;
+  }
 };
 
 export const useChangeMemberWanted = () => {
   return useMutation(patchMemberWanted, {
     onSuccess: (res) => {
-      console.log(res);
-      // if (res.code === 1103) {
-      //   alert("회원정보가 변경되었습니다.");
-      //
-      //   return;
-      // }
+      if (res.code === 1103) {
+        alert("매칭 직군이 변경되었습니다.");
+
+        return;
+      }
     },
   });
 };

@@ -22,8 +22,6 @@ export default function Page() {
     });
   };
 
-  console.log(interest);
-
   return (
     <div className={"w-full h-full flex flex-col items-center relative"}>
       <Header content={"매칭 직군 설정"} back={"/setting"} />
