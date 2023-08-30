@@ -80,7 +80,7 @@ export default function LibraryWrapper({ children }: Props) {
       };
     };
 
-    // connectEventSource();
+    connectEventSource();
 
     const interval = setInterval(() => {
       connectEventSource();
