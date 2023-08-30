@@ -25,7 +25,9 @@ export const BottomNavigator = () => {
 
   const { push } = useRouter();
 
-  const { isNewChat } = useChatControl();
+  const {
+    newChatInfo: { isNewChat },
+  } = useChatControl();
 
   const handleClickIcon = (name: string) => {
     push(`/${name}`);

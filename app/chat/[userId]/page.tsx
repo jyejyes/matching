@@ -7,22 +7,43 @@ import useModalControl from "#/app/modalControl.state";
 import { DeleteChattingRoomModal } from "#/app/chat/[userId]/_components/DeleteChattingRoomModal";
 import { useGetMessageRoom } from "#/hooks/apis/useGetMessageRoom";
 import { usePathname } from "next/navigation";
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
+import useChatControl from "#/app/chat/chat.state";
 
 export default function Page() {
   const roomId = Number(usePathname().split("/")[2]);
 
   const { isDeleteChatModalOpen } = useModalControl();
+  const { newChatInfo, updateNewChatInfo } = useChatControl();
 
-  const { data: messageRoomInfo, isLoading } = useGetMessageRoom(roomId);
+  const {
+    data: messageRoomInfo,
+    isLoading,
+    refetch,
+  } = useGetMessageRoom(roomId);
 
   const scrollRef = useRef<HTMLDivElement>(null);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
+    scrollToBottom();
+  }, [messageRoomInfo]);
+
+  useEffect(() => {
+    //룸 아이디가 같으면 refetch 후 newChatInfo 초기화
+    if (newChatInfo.messageRoomId === roomId) {
+      refetch();
+
+      updateNewChatInfo({
+        isNewChat: false,
+      });
+    }
+  }, [newChatInfo]);
+
+  const scrollToBottom = () => {
     if (scrollRef.current) {
       scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
     }
-  }, []);
+  };
 
   return (
     <div className="w-full h-full flex flex-col overflow-hidden relative bg-gray1">

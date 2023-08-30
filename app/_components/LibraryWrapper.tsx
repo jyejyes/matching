@@ -24,7 +24,7 @@ export default function LibraryWrapper({ children }: Props) {
   const { updateIsMatchingSuccessModalOpen } = useModalControl();
 
   //신규 메세지 state
-  const { updateIsNewChat } = useChatControl();
+  const { updateNewChatInfo } = useChatControl();
 
   const token = LocalStorage.getItem("token");
 
@@ -49,8 +49,6 @@ export default function LibraryWrapper({ children }: Props) {
         const res = await event.data;
         const parsedRes = JSON.parse(res);
 
-        console.log(parsedRes);
-
         const {
           data: { type, content },
         } = parsedRes;
@@ -64,7 +62,10 @@ export default function LibraryWrapper({ children }: Props) {
         }
 
         if (type === "MESSAGE") {
-          updateIsNewChat(true);
+          updateNewChatInfo({
+            isNewChat: true,
+            messageRoomId: content.messageRoomId,
+          });
 
           return;
         }
@@ -78,6 +79,8 @@ export default function LibraryWrapper({ children }: Props) {
         eventSource.close();
       };
     };
+
+    connectEventSource();
 
     const interval = setInterval(() => {
       connectEventSource();

@@ -50,7 +50,7 @@ export default function ChatInput() {
   };
 
   return (
-    <div className="bg-white w-full h-auto flex flex-shrink-0 items-center justify-between px-5 pt-3 pb-4">
+    <div className="bg-white w-full h-auto flex items-center justify-between px-5 pt-3 pb-4">
       <textarea
         id="textarea"
         className="placeholder-gray5 resize-none border-none p-0 w-[90%] max-h-[100px] focus:outline-none focus:ring-0 "

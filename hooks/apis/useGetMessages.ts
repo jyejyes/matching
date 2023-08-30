@@ -39,14 +39,14 @@ const getMessage = async () => {
 };
 
 export const useGetMessages = () => {
-  const { isNewChat } = useChatControl();
+  const { newChatInfo } = useChatControl();
 
   const {
     isLoading,
     isSuccess,
     isError,
     data = {} as GetMessagesResponseType,
-  } = useQuery(["message", isNewChat], getMessage);
+  } = useQuery(["message", newChatInfo.isNewChat], getMessage);
 
   return { isLoading, isError, isSuccess, data };
 };
