@@ -30,7 +30,7 @@ export default function LibraryWrapper({ children }: Props) {
 
   useEffect(() => {
     //sse 초기 연결
-    connectEventSource();
+    // connectEventSource();
 
     const interval = setInterval(() => {
       connectEventSource();
