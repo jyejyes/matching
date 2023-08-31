@@ -29,57 +29,7 @@ export default function LibraryWrapper({ children }: Props) {
   const token = LocalStorage.getItem("token");
 
   useEffect(() => {
-    let eventSource: EventSourcePolyfill;
-
-    const connectEventSource = async () => {
-      eventSource = new EventSourcePolyfill(
-        `https://project-308.kro.kr/subscribe/${Math.ceil(
-          Math.random() * 1000
-        )}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-
-          heartbeatTimeout: 10 * 60 * 1000,
-        }
-      );
-
-      eventSource.onmessage = async (event) => {
-        const res = await event.data;
-        const parsedRes = JSON.parse(res);
-
-        const {
-          data: { type, content },
-        } = parsedRes;
-
-        if (type === "MATCH") {
-          updateMatchingSuccessInfo(content);
-
-          updateIsMatchingSuccessModalOpen(true);
-
-          return;
-        }
-
-        if (type === "MESSAGE") {
-          updateNewChatInfo({
-            isNewChat: true,
-            messageRoomId: content.messageRoomId,
-          });
-
-          return;
-        }
-
-        if (type === "ERROR") {
-          window.location.assign(routerPaths.signup());
-        }
-      };
-
-      eventSource.onerror = (event) => {
-        eventSource.close();
-      };
-    };
-
+    //sse 초기 연결
     connectEventSource();
 
     const interval = setInterval(() => {
@@ -90,6 +40,55 @@ export default function LibraryWrapper({ children }: Props) {
       clearInterval(interval);
     };
   }, []);
+
+  const connectEventSource = async () => {
+    let eventSource: EventSourcePolyfill;
+
+    eventSource = new EventSourcePolyfill(
+      `https://project-308.kro.kr/subscribe/${Math.ceil(Math.random() * 1000)}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+
+        heartbeatTimeout: 10 * 60 * 1000,
+      }
+    );
+
+    eventSource.onmessage = async (event) => {
+      const res = await event.data;
+      const parsedRes = JSON.parse(res);
+
+      const {
+        data: { type, content },
+      } = parsedRes;
+
+      if (type === "MATCH") {
+        updateMatchingSuccessInfo(content);
+
+        updateIsMatchingSuccessModalOpen(true);
+
+        return;
+      }
+
+      if (type === "MESSAGE") {
+        updateNewChatInfo({
+          isNewChat: true,
+          messageRoomId: content.messageRoomId,
+        });
+
+        return;
+      }
+
+      if (type === "ERROR") {
+        window.location.assign(routerPaths.signup());
+      }
+    };
+
+    eventSource.onerror = (event) => {
+      eventSource.close();
+    };
+  };
 
   const { isMatchingSuccessModalOpen } = modalControlState();
 

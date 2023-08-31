@@ -41,7 +41,7 @@ export const InfiniteImages = () => {
 
       <div className="min-h-[120px] w-[1290px] flex gap-5 overflow-hidden">
         <motion.img
-          src="/images/signup/img-main2@x2.png"
+          src="/images/signup/img-main1@x2.png"
           alt="Infinite Slider"
           initial="start"
           animate="end"
@@ -49,7 +49,7 @@ export const InfiniteImages = () => {
           className="h-[120px]"
         />
         <motion.img
-          src="/images/signup/img-main2@x2.png"
+          src="/images/signup/img-main1@x2.png"
           alt="Infinite Slider"
           initial="start"
           animate="end"
