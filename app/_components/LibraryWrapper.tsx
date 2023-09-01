@@ -81,7 +81,9 @@ export default function LibraryWrapper({ children }: Props) {
       }
 
       if (type === "ERROR") {
-        window.location.assign(routerPaths.signup());
+        // window.location.assign(routerPaths.signup());
+
+        alert("token error test");
 
         return;
       }
